@@ -11,26 +11,23 @@ function Navbar() {
   const { handleMenu } = h;
 
   return (
-    <nav className="relative z-10 w-full text-white bg-sky-500">
+    <nav className="relative z-10 w-full text-black bg-neutral-200">
       <div className="flex justify-between items-center mx-5 ">
         {/* Logo */}
-        <div className="flex items-center text-2xl h-14">
-          <Link href="/" className="font-black">
+        <div className="flex items-center h-24">
+          <Link href="/" className="font-black text-6xl">
             MOVIES
           </Link>
         </div>
 
         {/* 메뉴 */}
-        <ul className="flex gap-5">
+        <ul className="flex gap-5 text-2xl">
           <li
             onClick={() => {
               handleMenu('');
             }}
           >
-            <Link
-              href="/"
-              className={selectedMenu === '' ? 'font-black text-blue-800' : ''}
-            >
+            <Link href="/" className={selectedMenu === '' ? 'font-black' : ''}>
               홈
             </Link>
           </li>
@@ -41,11 +38,21 @@ function Navbar() {
           >
             <Link
               href="/box-office"
-              className={
-                selectedMenu === 'box-office' ? 'font-black text-blue-800' : ''
-              }
+              className={selectedMenu === 'box-office' ? 'font-black' : ''}
             >
               박스오피스
+            </Link>
+          </li>
+          <li
+            onClick={() => {
+              handleMenu('search');
+            }}
+          >
+            <Link
+              href="/movies"
+              className={selectedMenu === 'search' ? 'font-black' : ''}
+            >
+              영화검색
             </Link>
           </li>
         </ul>

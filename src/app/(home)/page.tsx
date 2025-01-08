@@ -1,5 +1,5 @@
-import Container from '@components/container/Container';
+import Home from '@features/home/Home';
 
-export default function Home() {
-  return <Container>HOME</Container>;
+export default function HomePage() {
+  return <Home />;
 }
