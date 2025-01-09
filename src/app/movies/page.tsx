@@ -1,5 +1,5 @@
 import Movies from '@features/movies/Movies';
 
-export default function MoviesPage() {
+export default async function MoviesPage() {
   return <Movies />;
 }
