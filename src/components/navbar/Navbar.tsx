@@ -15,8 +15,21 @@ function Navbar() {
       <div className="flex justify-between items-center mx-5 ">
         {/* Logo */}
         <div className="flex items-center h-24">
-          <Link href="/" className="font-black text-6xl">
-            MOVIES
+          <Link
+            href="/"
+            className="font-black bg-red-500 text-6xl border-4 border-black p-2"
+          >
+            {/*<svg*/}
+            {/*  viewBox="0 0 24 24"*/}
+            {/*  width={80}*/}
+            {/*  xmlns="http://www.w3.org/2000/svg"*/}
+            {/*>*/}
+            {/*  <g data-name="44. Video" id="_44._Video">*/}
+            {/*    <rect height="16" rx="2" width="17" y="4" />*/}
+            {/*    <path d="M23.46,5.11a1,1,0,0,0-1.04.08L19,7.63v8.74l3.42,2.44A.939.939,0,0,0,23,19a1.072,1.072,0,0,0,.46-.11A1,1,0,0,0,24,18V6A1,1,0,0,0,23.46,5.11Z" />*/}
+            {/*  </g>*/}
+            {/*</svg>*/}
+            MOVIE
           </Link>
         </div>
 

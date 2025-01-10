@@ -36,8 +36,6 @@ export default function BoxOffice({ data }: BoxOfficeProps) {
 
   const isDailyRange = startDate === endDate;
 
-  console.log(boxOfficeList);
-
   return (
     <section>
       <span className="font-black text-3xl">{boxOfficeType}</span>

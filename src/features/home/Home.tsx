@@ -1,7 +1,7 @@
-import BoxOffice from '@features/home/components/Box-office';
 import { format, subDays } from 'date-fns';
 import Container from '@components/container/Container';
 import Spacing30 from '@components/spacing/Spacing-40';
+import BoxOffice from '@features/home/components/box-office';
 
 export default Home;
 
