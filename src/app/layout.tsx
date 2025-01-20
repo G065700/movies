@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@components/navbar/Navbar';
 import localFont from 'next/font/local';
+import { ReactNode } from 'react';
+import Navbar from '@components/shared/navbar/Navbar';
+import ExchangeGlobal from '@components/client/ExchangeGlobal';
+import ExchangeModal from '@components/client/ExchangeModal';
 
 const gowunDodum = localFont({
   src: [
@@ -31,11 +34,13 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" className={gowunDodum.className}>
       <body>
+        <ExchangeModal />
+        <ExchangeGlobal />
         <Navbar />
         {children}
       </body>
