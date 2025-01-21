@@ -3,24 +3,24 @@
 import TextField from '@components/shared/form/TextField';
 import { useState, useCallback, ChangeEvent } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { MovieSearchParamsForView } from '@/types/movies';
+import { MakersSearchParamsForView } from '@/types/makers';
 
-export default MoviesSearchFilter;
+export default MakersSearchFilter;
 
-interface MoviesSearchFilterProps {
+interface MakersSearchFilterProps {
   data: {
-    searchParams: MovieSearchParamsForView;
+    searchParams: MakersSearchParamsForView;
   };
 }
 
-function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
+function MakersSearchFilter({ data }: MakersSearchFilterProps) {
   const { searchParams } = data;
 
   const router = useRouter();
   const pathname = usePathname();
 
   const [formValues, setFormValues] =
-    useState<MovieSearchParamsForView>(searchParams);
+    useState<MakersSearchParamsForView>(searchParams);
 
   const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prevFormValues) => ({
@@ -30,7 +30,7 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
   }, []);
 
   const handleSearchButton = () => {
-    const tempSearchParams: MovieSearchParamsForView = {
+    const tempSearchParams: MakersSearchParamsForView = {
       ...formValues,
       page: '1',
     };
@@ -50,21 +50,15 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
     <div className="flex gap-[20px] justify-between items-end">
       <div className="flex flex-wrap gap-[15px]">
         <TextField
-          label="영화명"
-          name="title"
+          label="영화인명"
+          name="peopleNm"
           value={formValues.title}
           onChange={handleFormValues}
         />
         <TextField
-          label="감독명"
-          name="director"
+          label="필모"
+          name="filmoNames"
           value={formValues.director}
-          onChange={handleFormValues}
-        />
-        <TextField
-          label="배우명"
-          name="actor"
-          value={formValues.actor}
           onChange={handleFormValues}
         />
       </div>

@@ -228,7 +228,7 @@ function MovieDetailModalContent({ movie }: { movie: BoxOfficeItemForView }) {
           />
           <Data
             title="누적매출액"
-            content={`${Number(movie.salesAcc).toLocaleString()} 명`}
+            content={`${Number(movie.salesAcc).toLocaleString()} 원`}
           />
         </DataRow>
       </div>
