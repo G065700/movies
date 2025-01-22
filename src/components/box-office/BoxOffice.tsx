@@ -16,12 +16,10 @@ function BoxOffice({ data }: BoxOfficeProps) {
   const { daily, weekly } = data;
 
   return (
-    <>
-      <Container className="h-[calc(100dvh_-_80px)]">
-        <BoxOfficeByPeriod data={daily} />
-        <Spacing40 />
-        <BoxOfficeByPeriod data={weekly} />
-      </Container>
-    </>
+    <Container>
+      <BoxOfficeByPeriod data={daily} />
+      <Spacing40 />
+      <BoxOfficeByPeriod data={weekly} />
+    </Container>
   );
 }

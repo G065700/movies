@@ -32,20 +32,22 @@ function BoxOfficeSwiperCardContent({
         <Rating data={{ rating: movie.detail.rating }} />
         <span className="font-black">{movie.movieNm}</span>
       </div>
-      <div className="flex flex-col flex-1">
-        <span className="w-fit">장르: {movie.detail.genre}</span>
-        <span className="w-fit">
+      <div className="flex flex-col flex-1 w-full">
+        <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
+          장르: {movie.detail.genre}
+        </span>
+        <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
           감독: {movie.detail.directors.director[0].directorNm}{' '}
           {movie.detail.directors.director.length > 1 &&
             `외 ${movie.detail.directors.director.length - 1}명`}
         </span>
-        <span className="w-fit">
+        <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
           개봉일:{' '}
           {format(parseISO(movie.detail.repRlsDate), 'yyyy년 M월 d일', {
             locale: ko,
           })}
         </span>
-        <span className="w-fit">
+        <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
           누적관객수: {Number(movie.audiAcc).toLocaleString()} 명
         </span>
       </div>
