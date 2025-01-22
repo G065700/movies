@@ -17,8 +17,6 @@ export default async function Movies({ searchParams }: MoviesProps) {
 
   const searchParamsForView: MovieSearchParamsForView = {
     title: params.title || '',
-    releaseDts: params.releaseDts || '',
-    releaseDte: params.releaseDte || '',
     director: params.director || '',
     actor: params.actor || '',
     page: params.page || '1',
@@ -26,7 +24,7 @@ export default async function Movies({ searchParams }: MoviesProps) {
   };
 
   return (
-    <Container>
+    <Container className="min-w-[980px]">
       <MoviesSearchFilter data={{ searchParams: searchParamsForView }} />
       <Division />
       <MoviesSearchResultSummary

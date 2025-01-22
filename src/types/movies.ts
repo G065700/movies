@@ -1,7 +1,5 @@
 export type MoviesSearchParams = {
   title?: string;
-  releaseDts?: string;
-  releaseDte?: string;
   director?: string;
   actor?: string;
   page?: string;
@@ -11,8 +9,6 @@ export type MoviesSearchParams = {
 export type MovieSearchParamsForView = {
   [key: string]: string;
   title: string;
-  releaseDts: string;
-  releaseDte: string;
   director: string;
   actor: string;
   page: string;

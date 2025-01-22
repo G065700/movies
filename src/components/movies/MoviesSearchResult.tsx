@@ -17,17 +17,17 @@ function MoviesSearchResult({ data }: MoviesSearchResultProps) {
     <table className="w-full table-fixed my-[10px]">
       <thead>
         <tr className="block bg-gray-400">
-          <th className="inline-block w-[40%] leading-[40px]">영상명</th>
+          <th className="inline-block w-[40%] leading-[40px]">영화명</th>
           <th className="inline-block w-[15%]">감독명</th>
           <th className="inline-block w-[15%]">장르</th>
           <th className="inline-block w-[20%]">등급</th>
           <th className="inline-block w-[10%]">개봉일</th>
         </tr>
       </thead>
-      <tbody className="block max-h-[calc(100dvh_-_330px)] overflow-y-auto">
+      <tbody className="block max-h-[calc(100dvh_-_345px)] overflow-y-auto">
         {(!searchResult || searchResult.length === 0) && (
           <tr className="h-20 bg-gray-300 table w-full">
-            <th scope="row">검색 조건과 일치하는 영상이 없습니다.</th>
+            <th scope="row">검색 조건과 일치하는 영화가 없습니다.</th>
           </tr>
         )}
         {searchResult?.map((movie: MovieResponseDataResult) => (

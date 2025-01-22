@@ -11,7 +11,6 @@ const Container = ({ children, className }: ContainerProps) => {
       className={`
         min-h-[calc(100dvh_-_80px)]
         w-full
-        min-w-[605px]
         px-5
         py-6
         ${className}

@@ -33,7 +33,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     return (
-      <div className="flex flex-col items-start gap-[5px] xl:flex-row xl:items-center">
+      <div className="flex flex-row items-center gap-[5px]">
         {label ? <span>{label}</span> : <div className="h-[24px]">{''}</div>}
         <Input
           ref={ref}

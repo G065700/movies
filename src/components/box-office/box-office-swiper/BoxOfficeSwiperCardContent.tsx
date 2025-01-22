@@ -48,33 +48,6 @@ function BoxOfficeSwiperCardContent({
         <span className="w-fit">
           누적관객수: {Number(movie.audiAcc).toLocaleString()} 명
         </span>
-
-        {/*{boxOfficeType.includes('일별') && (*/}
-        {/*  <>*/}
-        {/*    <span className="xl:hidden">*/}
-        {/*      해당일 관객수: {Number(movie.audiCnt).toLocaleString()} 명 (*/}
-        {/*      <span*/}
-        {/*        className={`text-pretty ${Number(movie.audiChange) < 0 ? 'text-red-500' : 'text-blue-500'}`}*/}
-        {/*      >*/}
-        {/*        /!*{movie.audiChange}%*!/*/}
-        {/*      </span>*/}
-        {/*      )*/}
-        {/*    </span>*/}
-
-        {/*    <span className="hidden xl:inline">*/}
-        {/*      해당일 관객수: {Number(movie.audiCnt).toLocaleString()} 명*/}
-        {/*    </span>*/}
-
-        {/*    <div className="hidden xl:inline">*/}
-        {/*      관객수 증감율(어제 대비):{' '}*/}
-        {/*      <span*/}
-        {/*        className={`${Number(movie.audiChange) < 0 ? 'text-red-500' : 'text-blue-500'}`}*/}
-        {/*      >*/}
-        {/*        {movie.audiChange}%*/}
-        {/*      </span>*/}
-        {/*    </div>*/}
-        {/*  </>*/}
-        {/*)}*/}
       </div>
     </div>
   );
