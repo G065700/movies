@@ -1,6 +1,4 @@
-import { parseISO, format } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { BoxOfficeItemForView } from '@/types/box-office';
+import { BoxOfficeMovieForView } from '@/types/box-office';
 
 export default BoxOfficeSwiperCardContent;
 
@@ -8,10 +6,14 @@ function BoxOfficeSwiperCardContent({
   data,
 }: {
   data: {
-    movie: BoxOfficeItemForView;
+    movie: BoxOfficeMovieForView;
   };
 }) {
-  const { movie } = data;
+  const {
+    movie: {
+      summary: { movieNm, genre, director, audit, openDt, audiAcc },
+    },
+  } = data;
 
   return (
     <div
@@ -29,45 +31,40 @@ function BoxOfficeSwiperCardContent({
       "
     >
       <div className="w-[60%] sm:w-full sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap">
-        <Rating data={{ rating: movie.detail.rating }} />
-        <span className="font-black">{movie.movieNm}</span>
+        <Rating data={{ audit }} />
+        <span className="font-black">{movieNm}</span>
       </div>
       <div className="flex flex-col flex-1 w-full">
         <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-          장르: {movie.detail.genre}
+          장르: {genre}
         </span>
         <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-          감독: {movie.detail.directors.director[0].directorNm}{' '}
-          {movie.detail.directors.director.length > 1 &&
-            `외 ${movie.detail.directors.director.length - 1}명`}
+          감독: {director}
         </span>
         <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-          개봉일:{' '}
-          {format(parseISO(movie.detail.repRlsDate), 'yyyy년 M월 d일', {
-            locale: ko,
-          })}
+          개봉일: {openDt}
         </span>
         <span className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-          누적관객수: {Number(movie.audiAcc).toLocaleString()} 명
+          누적관객수: {Number(audiAcc).toLocaleString()} 명
         </span>
       </div>
     </div>
   );
 }
 
-function Rating({ data }: { data: { rating: string } }) {
-  const { rating } = data;
+function Rating({ data }: { data: { audit: string } }) {
+  const { audit } = data;
 
   let bgColor;
   let age;
 
-  if (rating === '청소년관람불가') {
+  if (audit === '청소년관람불가') {
     bgColor = 'bg-red-500';
     age = '19';
-  } else if (rating.includes('15세이상')) {
+  } else if (audit.includes('15세이상')) {
     bgColor = 'bg-amber-400';
     age = '15';
-  } else if (rating.includes('12세이상')) {
+  } else if (audit.includes('12세이상')) {
     bgColor = 'bg-blue-700';
     age = '12';
   } else {

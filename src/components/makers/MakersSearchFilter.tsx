@@ -1,9 +1,10 @@
 'use client';
 
 import TextField from '@components/shared/form/TextField';
-import { useState, useCallback, ChangeEvent } from 'react';
+import { useState, useCallback, ChangeEvent, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { MakersSearchParamsForView } from '@/types/makers';
+import Button from '@shared/button/Button';
 
 export default MakersSearchFilter;
 
@@ -21,6 +22,10 @@ function MakersSearchFilter({ data }: MakersSearchFilterProps) {
 
   const [formValues, setFormValues] =
     useState<MakersSearchParamsForView>(searchParams);
+
+  useEffect(() => {
+    setFormValues(searchParams);
+  }, [searchParams]);
 
   const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prevFormValues) => ({
@@ -47,27 +52,34 @@ function MakersSearchFilter({ data }: MakersSearchFilterProps) {
   };
 
   return (
-    <div className="flex gap-[20px] justify-between items-end">
+    <div className="flex gap-5">
       <div className="flex flex-wrap gap-[15px]">
         <TextField
           label="영화인명"
           name="peopleNm"
           value={formValues.title}
           onChange={handleFormValues}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchButton();
+            }
+          }}
         />
         <TextField
           label="필모"
           name="filmoNames"
           value={formValues.director}
           onChange={handleFormValues}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchButton();
+            }
+          }}
         />
       </div>
-      <button
-        className="h-[48px] bg-blue-500 px-4 rounded-lg text-white"
-        onClick={handleSearchButton}
-      >
+      <Button onClick={handleSearchButton} className="px-6">
         검색
-      </button>
+      </Button>
     </div>
   );
 }

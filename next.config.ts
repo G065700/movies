@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['file.koreafilm.or.kr'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

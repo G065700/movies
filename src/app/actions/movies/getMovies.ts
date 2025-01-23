@@ -1,6 +1,6 @@
 'use server';
 
-import { MoviesResponse, MoviesSearchParams } from '@/types/movies';
+import { KobisResData, MoviesSearchParams } from '@/types/movies';
 
 export default async function getMovies(params: MoviesSearchParams) {
   const {
@@ -18,7 +18,7 @@ export default async function getMovies(params: MoviesSearchParams) {
     `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?${qs}`,
   );
 
-  const data: MoviesResponse = await res.json();
+  const data: KobisResData = await res.json();
 
   return {
     data,

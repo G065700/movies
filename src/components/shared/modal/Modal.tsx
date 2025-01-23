@@ -1,5 +1,6 @@
 import Dimmed from '@components/shared/modal/Dimmed';
 import { ReactNode } from 'react';
+import Button from '@shared/button/Button';
 
 export default Modal;
 
@@ -7,17 +8,10 @@ interface ModalProps {
   open: boolean;
   title: ReactNode;
   content: ReactNode;
-  buttonLabel?: string;
   onButtonClick: () => void;
 }
 
-function Modal({
-  open,
-  title,
-  content,
-  buttonLabel = '확인',
-  onButtonClick,
-}: ModalProps) {
+function Modal({ open, title, content, onButtonClick }: ModalProps) {
   if (!open) {
     return null;
   }
@@ -28,12 +22,7 @@ function Modal({
         <div className="text-xl font-black">{title}</div>
         <div className="max-h-[70dvh] overflow-auto pr-1">{content}</div>
         <div className="flex justify-center">
-          <button
-            onClick={onButtonClick}
-            className="w-fit bg-blue-500 px-4 py-2 rounded-lg text-white"
-          >
-            {buttonLabel}
-          </button>
+          <Button onClick={onButtonClick} />
         </div>
       </div>
     </Dimmed>

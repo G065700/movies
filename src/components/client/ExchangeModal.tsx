@@ -8,14 +8,13 @@ export default ExchangeModal;
 function ExchangeModal() {
   const { setModal, getModal } = useModalStore();
 
-  const { open, title, content, buttonLabel, onButtonClick } = getModal();
+  const { open, title, content, onButtonClick } = getModal();
 
   return (
     <Modal
       open={open}
       title={title}
       content={content}
-      buttonLabel={buttonLabel}
       onButtonClick={() => {
         if (onButtonClick) {
           onButtonClick();

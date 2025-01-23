@@ -37,8 +37,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={gowunDodum.className}>
-      <body>
+    <html lang="ko">
+      <body className={gowunDodum.className}>
         <ExchangeModal />
         <ExchangeGlobal />
         <Navbar />

@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent } from 'react';
 import { MovieSearchParamsForView } from '@/types/movies';
+import CountPerPageSelect from '@shared/select/CountPerPageSelect';
 
 export default MoviesSearchResultSummary;
 
@@ -41,16 +42,11 @@ function MoviesSearchResultSummary({ data }: MoviesSearchResultSummaryProps) {
 
   return (
     <div className="flex justify-between items-center">
-      <select
+      <CountPerPageSelect
         name="countPerPage"
         value={countPerPage}
-        onChange={handleCountPerPage}
-        className="p-2 rounded-md"
-      >
-        <option value={'10'}>10개씩 보기</option>
-        <option value={'20'}>20개씩 보기</option>
-        <option value={'30'}>30개씩 보기</option>
-      </select>
+        handleChange={handleCountPerPage}
+      />
       <span>
         총 <strong>{totalCount.toLocaleString()}</strong> 개
       </span>

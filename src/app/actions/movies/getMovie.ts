@@ -1,4 +1,4 @@
-import { MoviesResponse } from '@/types/movies';
+import { KobisResData } from '@/types/movies';
 
 export default async function getMovie(movieId: string) {
   const id = movieId.charAt(0);
@@ -8,7 +8,7 @@ export default async function getMovie(movieId: string) {
     `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&movieId=${id}&movieSeq=${seq}&ServiceKey=${process.env.KMDB_KEY}`,
   );
 
-  const data: MoviesResponse = await res.json();
+  const data: KobisResData = await res.json();
 
   return {
     data,

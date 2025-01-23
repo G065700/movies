@@ -19,25 +19,36 @@ function MovieDefaultInfo({ data }: MovieDefaultInfoProps) {
       <DataRow>
         <Data title="영화명" content={defaultInfo.title} />
       </DataRow>
-      <DataRow>
-        <Data title="장르" content={defaultInfo.genre} />
-        <Data title="등급" content={defaultInfo.rating} />
-      </DataRow>
-      <DataRow>
-        <Data title="개봉일" content={defaultInfo.repRlsDate} />
-        <Data title="상영시간" content={`${defaultInfo.runtime} 분`} />
-      </DataRow>
+      {(defaultInfo.genre || defaultInfo.rating) && (
+        <DataRow>
+          <Data title="장르" content={defaultInfo.genre} />
+          <Data title="등급" content={defaultInfo.rating} />
+        </DataRow>
+      )}
+      {(defaultInfo.repRlsDate || defaultInfo.runtime) && (
+        <DataRow>
+          <Data title="개봉일" content={defaultInfo.repRlsDate} />
+          <Data
+            title="상영시간"
+            content={`${defaultInfo.runtime} ${defaultInfo.runtime ? ' 분' : null}`}
+          />
+        </DataRow>
+      )}
       {defaultInfo.keywords && (
         <DataRow>
           <Data title="키워드" content={defaultInfo.keywords} />
         </DataRow>
       )}
-      <DataRow>
-        <Data title="줄거리" content={defaultInfo.plot[0].plotText} />
-      </DataRow>
-      <DataRow>
-        <Data title="제작국가" content={defaultInfo.nation} />
-      </DataRow>
+      {defaultInfo.plot[0].plotText && (
+        <DataRow>
+          <Data title="줄거리" content={defaultInfo.plot[0].plotText} />
+        </DataRow>
+      )}
+      {defaultInfo.nation && (
+        <DataRow>
+          <Data title="제작국가" content={defaultInfo.nation} />
+        </DataRow>
+      )}
     </div>
   );
 }

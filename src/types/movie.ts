@@ -1,7 +1,7 @@
-import { MovieResponseDataResult, Plot } from '@/types/movies';
+import { KmdbMovieInfo, Plot } from '@/types/movies';
 
 export type MovieResponseDataResultForDefaultInfo = Pick<
-  MovieResponseDataResult,
+  KmdbMovieInfo,
   | 'title'
   | 'genre'
   | 'rating'

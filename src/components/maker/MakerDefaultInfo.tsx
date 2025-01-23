@@ -18,7 +18,10 @@ function MakerDefaultInfo({ data }: MakerDefaultInfoProps) {
       <div className="text-lg font-black">기본 정보</div>
       <DataRow>
         <Data title="영화인명" content={defaultInfo.peopleNm} />
-        <Data title="영화인명(영문)" content={defaultInfo.peopleNmEn} />
+        <Data
+          title={<span className="text-pretty">영화인명(영문)</span>}
+          content={defaultInfo.peopleNmEn}
+        />
       </DataRow>
       <DataRow>
         <Data title="성별" content={defaultInfo.sex} />

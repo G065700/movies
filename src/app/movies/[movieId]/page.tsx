@@ -13,12 +13,16 @@ import BackButton from '@components/movie/BackButton';
 export default async function MoviePage({
   params,
 }: {
-  params: { movieId: string };
+  params: Promise<{ movieId: string }>;
 }) {
   const { movieId } = await params;
   const data = await getMovie(movieId);
 
-  const movie = data.data.Data[0].Result[0];
+  const movie = data.data.Data[0].Result?.[0];
+
+  if (!movie) {
+    return null;
+  }
 
   const defaultInfo: MovieResponseDataResultForDefaultInfo = {
     title: movie.title,

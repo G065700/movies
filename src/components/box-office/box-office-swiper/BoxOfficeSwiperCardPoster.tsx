@@ -21,7 +21,7 @@ function BoxOfficeSwiperCardPoster({ data }: BoxOfficeCardRankProps) {
       <Image
         width={106}
         height={151}
-        src={posterSrc}
+        src={posterSrc || '/poster.png'}
         alt={movieNm}
         className="
           rounded-lg

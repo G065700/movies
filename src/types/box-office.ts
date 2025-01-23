@@ -1,30 +1,32 @@
-// 응답으로 받은 일별 박스오피스
-import { MovieResponseDataResult } from '@/types/movies';
+// 박스오피스(KOBIS)
 
-export type DailyBoxOfficeResponse = {
-  boxOfficeResult: DailyBoxOfficeResponseResult;
+// 응답으로 받은 일별 박스오피스
+import { KmdbMovieInfo } from '@/types/movies';
+
+export type KobisDailyBoxOfficeRes = {
+  boxOfficeResult: KobisDailyBoxOfficeResData;
 };
 
-type DailyBoxOfficeResponseResult = BoxOfficeIdentifier & {
-  dailyBoxOfficeList: BoxOfficeItem[];
+type KobisDailyBoxOfficeResData = KobisBoxOfficeResIdentifier & {
+  dailyBoxOfficeList: KobisBoxOfficeItem[];
 };
 
 // 응답으로 받은 주간 박스오피스
-export type WeeklyBoxOfficeResponse = {
-  boxOfficeResult: WeeklyBoxOfficeResponseResult;
+export type KobisWeeklyBoxOfficeRes = {
+  boxOfficeResult: KobisWeeklyBoxOfficeResData;
 };
 
-type WeeklyBoxOfficeResponseResult = BoxOfficeIdentifier & {
+type KobisWeeklyBoxOfficeResData = KobisBoxOfficeResIdentifier & {
   yearWeekTime: string;
-  weeklyBoxOfficeList: BoxOfficeItem[];
+  weeklyBoxOfficeList: KobisBoxOfficeItem[];
 };
 
-type BoxOfficeIdentifier = {
+type KobisBoxOfficeResIdentifier = {
   boxofficeType: string; // 박스오피스 종류
   showRange: string; // 박스오피스 조회 일자
 };
 
-export type BoxOfficeItem = {
+export type KobisBoxOfficeItem = {
   audiAcc: string; // 누적관객수
   audiChange: string; // 전일 대비 관객수 증감 비율
   audiCnt: string; // 해당일의 관객수
@@ -45,18 +47,103 @@ export type BoxOfficeItem = {
   showCnt: string; // 해당일자에 상영된 횟수
 };
 
-export type BoxOfficeListForView = {
-  boxOfficeType: string;
-  range: string;
-  boxOfficeList: BoxOfficeItemForView[];
+///////////////////////////////////////////////////////////////////////////////
+
+// 영화 상세(KOBIS)
+export type KobisMovieResData = {
+  movieInfoResult: {
+    source: string;
+    movieInfo: KobisMovieInfo;
+  };
 };
 
-export type BoxOfficeItemForView = {
-  rank: string;
+export type KobisMovieInfo = {
+  actors: KobisMovieActor[];
+  audits: KobisMovieAudit[];
+  companys: KobisMovieCompany[];
+  directors: KobisMovieDirector[];
+  genres: KobisMovieGenre[];
+  movieCd: string;
   movieNm: string;
-  audiCnt: string; // 해당일의 관객수
-  audiChange: string; // 전일 대비 관객수 증감 비율
-  audiAcc: string; // 누적관객수
-  salesAcc: string;
-  detail: MovieResponseDataResult;
+  movieNmEn: string;
+  movieNmOg: string;
+  openDt: string;
+  nations: KobisMovieNation[];
+  prdtStatNm: string;
+  prdtYear: string;
+  showTm: string;
+  showTypes: KobisMovieShowType[];
+  staffs: KobisMovieStaff[];
+  typeNm: string;
+};
+
+type KobisMovieActor = KobisMoviePerson & {
+  cast: string;
+  castEn: string;
+};
+
+type KobisMovieAudit = {
+  auditNo: string;
+  watchGradeNm: string;
+};
+
+type KobisMovieCompany = {
+  companyCd: string;
+  companyNm: string;
+  companyNmEn: string;
+  companyPartNm: string;
+};
+
+type KobisMovieDirector = KobisMoviePerson;
+
+type KobisMovieGenre = {
+  genreNm: string;
+};
+
+type KobisMovieNation = {
+  nationNm: string;
+};
+
+type KobisMovieShowType = {
+  showTypeGroupNm: string;
+  showTypeNm: string;
+};
+
+type KobisMovieStaff = KobisMoviePerson & {
+  staffRoleNm: string;
+};
+
+type KobisMoviePerson = {
+  peopleNm: string;
+  peopleNmEn: string;
+};
+
+export type BoxOfficeMovieAllInfo = {
+  kobis: KobisMovieInfo;
+  kmdb: KmdbMovieInfo | undefined;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+
+export type BoxOfficeMovieListByPeriodForView = {
+  boxOfficeType: string;
+  range: string;
+  boxOfficeList: BoxOfficeMovieForView[];
+};
+
+export type BoxOfficeMovieForView = {
+  summary: {
+    rank: string;
+    poster: string;
+    movieCd: string;
+    movieSeq?: string;
+    movieNm: string;
+    genre: string;
+    director: string;
+    audit: string;
+    openDt: string;
+    audiAcc: string; // 누적관객수
+    salesAcc: string; // 누적매출액
+  };
+  detail?: KmdbMovieInfo;
 };
