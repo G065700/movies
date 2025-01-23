@@ -1,6 +1,7 @@
 export type Menu = {
   name: string;
   path: string;
+  depth2Menus?: Menu[];
 };
 
 export type Menus = Menu[];
@@ -11,11 +12,17 @@ export const menus: Menus = [
     path: '/',
   },
   {
-    name: '영화목록',
-    path: '/movies',
-  },
-  {
-    name: '영화인목록',
-    path: '/makers',
+    name: '목록',
+    path: '',
+    depth2Menus: [
+      {
+        name: '영화',
+        path: '/movies',
+      },
+      {
+        name: '영화인',
+        path: '/makers',
+      },
+    ],
   },
 ];

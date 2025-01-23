@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { create } from 'zustand';
 import { Menu, menus } from '@components/shared/navbar/menus';
-import { useCallback, useEffect } from 'react';
+import { Fragment, useCallback, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default Navbar;
@@ -21,28 +21,68 @@ function Navbar() {
   }, [pathname, handleMenu]);
 
   return (
-    <nav className="bg-white w-full flex justify-between p-5">
-      {/* Logo */}
-      <Link href="/" className="text-4xl">
+    <nav
+      className="
+        fixed
+        w-[180px]
+        h-[100dvh]
+        flex flex-col gap-[50px]
+        bg-white
+        p-5
+     "
+    >
+      <Link
+        href="/"
+        className="text-3xl font-black text-white bg-black p-2 rounded-lg text-center"
+      >
         MOVIE
       </Link>
-
       {/* menu list */}
-      <ul className="flex items-center gap-5 text-3xl">
+      <ul className="flex flex-col items-start gap-5 text-xl">
         {menus.map((menu) => (
-          <li
-            key={menu.path}
-            onClick={() => {
-              handleMenu(menu);
-            }}
-          >
-            <Link
-              href={menu.path}
-              className={selectedMenu?.path === menu.path ? 'font-black' : ''}
-            >
-              {menu.name}
-            </Link>
-          </li>
+          <Fragment key={menu.name}>
+            {!menu.depth2Menus && (
+              <li
+                onClick={() => {
+                  handleMenu(menu);
+                }}
+              >
+                <Link
+                  href={menu.path}
+                  className={
+                    selectedMenu?.path === menu.path ? 'font-black' : ''
+                  }
+                >
+                  {menu.name}
+                </Link>
+              </li>
+            )}
+            {menu.depth2Menus && (
+              <>
+                <li key={menu.name}>{menu.name}</li>
+                {menu.depth2Menus.map((depth2Menu) => (
+                  <li
+                    key={depth2Menu.name}
+                    className="ml-3"
+                    onClick={() => {
+                      handleMenu(depth2Menu);
+                    }}
+                  >
+                    <Link
+                      href={depth2Menu.path}
+                      className={
+                        selectedMenu?.path === depth2Menu.path
+                          ? 'font-black'
+                          : ''
+                      }
+                    >
+                      - {depth2Menu.name}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            )}
+          </Fragment>
         ))}
       </ul>
     </nav>

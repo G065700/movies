@@ -16,18 +16,14 @@ function BoxOfficeSwiperCardPoster({ data }: BoxOfficeCardRankProps) {
       className="
         hidden
         sm:block
-        sm:h-[calc(100%_-_165px)]
       "
     >
       <Image
-        width={500}
-        height={100}
+        width={106}
+        height={151}
         src={posterSrc}
         alt={movieNm}
         className="
-          max-h-full
-          w-fit
-          object-contain
           rounded-lg
           mx-auto
           max-h-[303px]

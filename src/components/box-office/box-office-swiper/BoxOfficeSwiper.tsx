@@ -8,7 +8,7 @@ import BoxOfficeSwiperCardPoster from '@components/box-office/box-office-swiper/
 import BoxOfficeSwiperCardContent from '@components/box-office/box-office-swiper/BoxOfficeSwiperCardContent';
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import Link from 'next/link';
 import { BoxOfficeItemForView } from '@/types/box-office';
 import { Staff } from '@/types/movies';
@@ -32,7 +32,7 @@ function ContentWrapper({ children }: { children: ReactNode }) {
     <>
       {innerWidth ? (
         <Swiper
-          spaceBetween={20}
+          spaceBetween={10}
           direction={innerWidth <= 856 ? 'vertical' : 'horizontal'}
           slidesPerView={
             innerWidth &&
@@ -40,7 +40,7 @@ function ContentWrapper({ children }: { children: ReactNode }) {
               ? 4
               : 3)
           }
-          className="h-[calc(100%_-_56px)] xl:h-fit"
+          className="h-[calc(100%_-_56px)] "
         >
           {children}
         </Swiper>
@@ -69,7 +69,7 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
       {boxOfficeList.map((movie) => (
         <SwiperSlide
           key={movie.movieNm}
-          className="min-h-[128px]"
+          className="min-h-[128px] sm:min-h-full"
           onClick={() => {
             handleSwiperSlide(movie);
           }}
@@ -79,12 +79,14 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
               cursor-pointer
               bg-white
               h-full
+              min-w-[586px]
               border-solid border-2 border-black
               rounded-lg
               sm:flex
               sm:flex-col
               sm:gap-[10px]
               sm:p-3
+              sm:min-w-full
               xl:flex-row
             "
           >

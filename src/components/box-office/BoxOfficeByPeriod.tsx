@@ -12,12 +12,12 @@ function BoxOfficeByPeriod({ data }: BoxOfficeByPeriodProps) {
   const { boxOfficeType, boxOfficeList, range } = data;
 
   return (
-    <section className="h-[calc(50%_-_20px)] sm:h-fit">
+    <div className="h-[calc(50%_-_20px)] sm:h-fit sm:max-h-full">
       <BoxOfficeByPeriodTitle data={{ boxOfficeType, range }} />
       <div className="h-[20px] text-[12px]">
         * 카드를 클릭한 상태로 드래그하면 이전/이후 카드가 보입니다.
       </div>
       <BoxOfficeSwiper data={{ boxOfficeList }} />
-    </section>
+    </div>
   );
 }
