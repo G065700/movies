@@ -5,10 +5,10 @@ import MakersSearchFilter from '@components/makers/MakersSearchFilter';
 import Division from '@shared/division/Division';
 import MakersSearchResultSummary from '@components/makers/MakersSearchResultSummary';
 import MakersSearchResult from '@components/makers/MakersSearchResult';
-import Pagination from '@components/makers/Pagination';
+import MakersPagination from '@components/makers/MakersPagination';
 
 interface MakersProps {
-  searchParams: MakersSearchParams;
+  searchParams: Promise<MakersSearchParams>;
 }
 
 export default async function Makers({ searchParams }: MakersProps) {
@@ -35,7 +35,7 @@ export default async function Makers({ searchParams }: MakersProps) {
       <MakersSearchResult
         data={{ searchResult: makers.data.peopleListResult.peopleList }}
       />
-      <Pagination
+      <MakersPagination
         data={{
           searchParams: searchParamsForView,
           totalCount: makers.data.peopleListResult.totCnt,

@@ -13,15 +13,19 @@ function MakersSearchResult({ data }: MakersSearchResultProps) {
   const { searchResult } = data;
 
   return (
-    <table className="w-full table-fixed my-[10px]">
+    <table className="w-full table-fixed my-[10px] rounded-lg overflow-hidden">
       <thead>
-        <tr className="block bg-gray-400">
-          <th className="inline-block w-[20%] leading-[40px]">영화인명</th>
-          <th className="inline-block w-[15%]">분야</th>
-          <th className="inline-block w-[65%]">필모리스트</th>
+        <tr className="bg-gray-400">
+          <th className="inline-block w-[calc(20%_-_3px)] leading-[40px]">
+            영화인명
+          </th>
+          <th className="inline-block w-[calc(15%_-_2px)] leading-[40px]">
+            분야
+          </th>
+          <th className="inline-block w-[65%] leading-[40px]">필모리스트</th>
         </tr>
       </thead>
-      <tbody className="block max-h-[calc(100dvh_-_345px)] overflow-y-auto">
+      <tbody className="block max-h-[calc(100dvh_-_235px)] overflow-y-auto">
         {(!searchResult || searchResult.length === 0) && (
           <tr className="h-20 bg-gray-300 table w-full">
             <th scope="row">검색 조건과 일치하는 영화인이 없습니다.</th>
@@ -30,37 +34,37 @@ function MakersSearchResult({ data }: MakersSearchResultProps) {
         {searchResult?.map((maker: MakersResponseDataPeople) => (
           <tr
             key={maker.peopleCd}
-            className="
+            className={`
                 block
                 h-[40px]
-                bg-gray-300
-                border-solid border-b-[1px] border-stone-100
+                even:bg-slate-200
+                odd:bg-white
                 cursor-pointer
                 hover:bg-gray-950 hover:text-white
-              "
+              `}
           >
-            <th className="inline-block w-[20%] leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap">
+            <th className="inline-block w-[20%] h-full">
               <Link
                 href={`/makers/${maker.peopleCd}`}
-                className="inline-block w-full"
+                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
               >
                 {maker.peopleNm}
               </Link>
             </th>
-            <td className="inline-block w-[15%] leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap">
+            <td className="inline-block w-[15%] h-full">
               <Link
                 href={`/makers/${maker.peopleCd}`}
-                className="inline-block w-full"
+                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
               >
                 {maker.repRoleNm}
               </Link>
             </td>
-            <td className="inline-block w-[65%] leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap">
+            <td className="inline-block w-[65%] h-full">
               <Link
                 href={`/makers/${maker.peopleCd}`}
-                className="inline-block w-full"
+                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
               >
-                {maker.filmoNames?.split('|').join(',')}
+                {maker.filmoNames?.split('|').join(' | ')}
               </Link>
             </td>
           </tr>

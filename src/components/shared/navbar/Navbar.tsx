@@ -16,7 +16,17 @@ function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const targetMenu = menus.find((menu) => menu.path === pathname);
+    let targetMenu = menus.find((menu) => menu.path === pathname);
+
+    if (!targetMenu) {
+      const depth1Menus = menus.filter((menu) => menu.depth2Menus);
+      depth1Menus.forEach((depth1Menu) => {
+        targetMenu = depth1Menu.depth2Menus?.find(
+          (depth2Menu) => depth2Menu.path === pathname,
+        );
+      });
+    }
+
     targetMenu && handleMenu(targetMenu);
   }, [pathname, handleMenu]);
 
@@ -35,7 +45,7 @@ function Navbar() {
         href="/"
         className="text-3xl font-black text-white bg-black p-2 rounded-lg text-center"
       >
-        MOVIE
+        MOVIES
       </Link>
       {/* menu list */}
       <ul className="flex flex-col items-start gap-5 text-xl">

@@ -5,10 +5,10 @@ import { MovieSearchParamsForView, MoviesSearchParams } from '@/types/movies';
 import Division from '@shared/division/Division';
 import MoviesSearchResultSummary from '@components/movies/MoviesSearchResultSummary';
 import MoviesSearchResult from '@components/movies/MoviesSearchResult';
-import Pagination from '@components/movies/Pagination';
+import MoviesPagination from '@components/movies/MoviesPagination';
 
 interface MoviesProps {
-  searchParams: MoviesSearchParams;
+  searchParams: Promise<MoviesSearchParams>;
 }
 
 export default async function Movies({ searchParams }: MoviesProps) {
@@ -34,7 +34,7 @@ export default async function Movies({ searchParams }: MoviesProps) {
         }}
       />
       <MoviesSearchResult data={{ searchResult: movies.data.Data[0].Result }} />
-      <Pagination
+      <MoviesPagination
         data={{
           searchParams: searchParamsForView,
           totalCount: movies.data.TotalCount,

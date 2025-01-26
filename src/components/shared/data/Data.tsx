@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export default Data;
 
 interface DataProps {
-  title: string;
+  title: ReactNode;
   content: ReactNode;
   contentClassName?: string;
 }

@@ -23,6 +23,10 @@ function MovieStaffsInfo({ data }: MovieStaffsInfoProps) {
     );
   });
 
+  if (roleGroups.length === 0 || (roleGroups.length === 1 && !roleGroups[0])) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col gap-1">
       <div className="text-lg font-black">참여</div>

@@ -11,7 +11,7 @@ import BackButton from '@components/maker/BackButton';
 export default async function MakerPage({
   params,
 }: {
-  params: { peopleCd: string };
+  params: Promise<{ peopleCd: string }>;
 }) {
   const { peopleCd } = await params;
   const data = await getMaker(peopleCd);

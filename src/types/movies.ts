@@ -15,7 +15,7 @@ export type MovieSearchParamsForView = {
   countPerPage: string;
 };
 
-export type MoviesResponse = {
+export type KobisResData = {
   KMAQuery: string;
   Query: string;
   TotalCount: number;
@@ -26,10 +26,10 @@ type MovieResponseData = {
   CollName: string;
   Count: number;
   TotalCount: number;
-  Result: MovieResponseDataResult[];
+  Result?: KmdbMovieInfo[];
 };
 
-export type MovieResponseDataResult = {
+export type KmdbMovieInfo = {
   ALIAS: string;
   Awards1: string; // 영화제수상내역
   Awards2: string; // 수상내역 기타

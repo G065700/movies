@@ -1,45 +1,46 @@
-import { format } from 'date-fns';
 import getDailyBoxOffice from '@actions/box-office/getDailyBoxOffice';
 import getWeeklyBoxOffice from '@actions/box-office/getWeeklyBoxOffice';
-import getMovie from '@actions/box-office/getMovie';
+import { getBoxOfficeMovie } from '@actions/box-office/movie/getBoxOfficeMovie';
 import {
-  BoxOfficeItem,
-  BoxOfficeItemForView,
-  BoxOfficeListForView,
-  DailyBoxOfficeResponse,
-  WeeklyBoxOfficeResponse,
+  KobisBoxOfficeItem,
+  BoxOfficeMovieListByPeriodForView,
+  KobisDailyBoxOfficeRes,
+  KobisWeeklyBoxOfficeRes,
+  BoxOfficeMovieForView,
 } from '@/types/box-office';
 import BoxOffice from '@components/box-office/BoxOffice';
-import { MovieResponseDataResult, MoviesResponse } from '@/types/movies';
+
+export const revalidate = 300;
+export const dynamicParams = false; // or false, to 404 on unknown paths
 
 export default async function BoxOfficePage() {
   // 일별 박스오피스
-  const dailyBoxOffice: { data: DailyBoxOfficeResponse } =
+  const dailyBoxOffice: { data: KobisDailyBoxOfficeRes } =
     await getDailyBoxOffice();
   const {
     data: { boxOfficeResult: dailyBoxOfficeResult },
   } = dailyBoxOffice;
 
   // 주간 박스오피스
-  const weeklyBoxOffice: { data: WeeklyBoxOfficeResponse } =
+  const weeklyBoxOffice: { data: KobisWeeklyBoxOfficeRes } =
     await getWeeklyBoxOffice();
   const {
     data: { boxOfficeResult: weeklyBoxOfficeResult },
   } = weeklyBoxOffice;
 
-  const dailyBoxOfficeList: BoxOfficeItemForView[] = await getBoxOfficeListData(
-    dailyBoxOfficeResult.dailyBoxOfficeList,
-  );
-  const weeklyBoxOfficeList: BoxOfficeItemForView[] =
+  const dailyBoxOfficeList: BoxOfficeMovieForView[] =
+    await getBoxOfficeListData(dailyBoxOfficeResult.dailyBoxOfficeList);
+
+  const weeklyBoxOfficeList: BoxOfficeMovieForView[] =
     await getBoxOfficeListData(weeklyBoxOfficeResult.weeklyBoxOfficeList);
 
-  const daily: BoxOfficeListForView = {
+  const daily: BoxOfficeMovieListByPeriodForView = {
     boxOfficeType: dailyBoxOfficeResult.boxofficeType,
     range: dailyBoxOfficeResult.showRange,
     boxOfficeList: dailyBoxOfficeList,
   };
 
-  const weekly: BoxOfficeListForView = {
+  const weekly: BoxOfficeMovieListByPeriodForView = {
     boxOfficeType: weeklyBoxOfficeResult.boxofficeType,
     range: weeklyBoxOfficeResult.showRange,
     boxOfficeList: weeklyBoxOfficeList,
@@ -48,32 +49,36 @@ export default async function BoxOfficePage() {
   return <BoxOffice data={{ daily, weekly }} />;
 }
 
-async function getBoxOfficeListData(boxOfficeListData: BoxOfficeItem[]) {
-  const boxOfficeList: BoxOfficeItemForView[] = [];
+async function getBoxOfficeListData(boxOfficeListData: KobisBoxOfficeItem[]) {
+  const boxOfficeList: BoxOfficeMovieForView[] = [];
 
-  for (const movie of boxOfficeListData) {
-    const name = movie.movieNm;
-    const openDt = format(new Date(movie.openDt), 'yyyyMMdd');
-
-    const movieDetailInfo: { data: MoviesResponse } = await getMovie(
-      name,
-      openDt,
-    );
+  for (const boxOfficeItemData of boxOfficeListData) {
+    const movieCd = boxOfficeItemData.movieCd;
 
     const {
-      data: { Data: detail },
-    } = movieDetailInfo;
+      data: { kobis, kmdb },
+    } = await getBoxOfficeMovie(movieCd);
 
-    const detailInfo: MovieResponseDataResult = detail[0].Result[0];
+    const genres = kobis.genres.map((genre) => genre.genreNm);
+    const directors = kobis.directors.map((director) => director.peopleNm);
+    const audit = kobis.audits.map((audit) => audit.watchGradeNm);
+    const posters = kmdb?.posters;
 
     boxOfficeList.push({
-      rank: movie.rank,
-      movieNm: movie.movieNm,
-      audiCnt: movie.audiCnt, // 해당일의 관객수
-      audiChange: movie.audiChange, // 전일 대비 관객수 증감 비율
-      audiAcc: movie.audiAcc, // 누적관객수
-      salesAcc: movie.salesAcc, // 누적매출액
-      detail: detailInfo,
+      summary: {
+        rank: boxOfficeItemData.rank,
+        poster: posters ? posters.split('|')[0] : '/poster.png',
+        movieCd: boxOfficeItemData.movieCd,
+        movieSeq: kmdb?.movieSeq,
+        movieNm: boxOfficeItemData.movieNm,
+        genre: genres.join(' | '),
+        director: `${directors[0]} ${directors.length > 1 ? `외 ${directors.length - 1} 명` : ''}`,
+        audit: audit.join(' | '),
+        openDt: boxOfficeItemData.openDt,
+        audiAcc: boxOfficeItemData.audiAcc,
+        salesAcc: boxOfficeItemData.salesAcc,
+      },
+      detail: kmdb,
     });
   }
 

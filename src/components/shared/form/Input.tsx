@@ -10,8 +10,8 @@ const Input = (
     <input
       className="
         px-[16px]
-        text-lg
-        h-[48px]
+        text-md
+        h-[36px]
         font-medium
         rounded-lg
         box-border

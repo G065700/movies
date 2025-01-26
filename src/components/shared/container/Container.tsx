@@ -1,7 +1,7 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 interface ContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
@@ -9,12 +9,11 @@ const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
       className={`
-        // h-[100dvh]
         w-[calc(100dvw_-_180px)]
-        px-5
-        py-6
+        min-h-[100dvh]
+        p-5
         ml-[180px]
-        ${className}
+        ${className ? className : ''}
       `}
     >
       {children}
