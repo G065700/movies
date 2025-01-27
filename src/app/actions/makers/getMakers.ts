@@ -12,6 +12,11 @@ export default async function getMakers(params: MakersSearchParams) {
 
   const res = await fetch(
     `https://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?${qs}`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    },
   );
 
   const data: MakersResponse = await res.json();
