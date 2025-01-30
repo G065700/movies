@@ -2,7 +2,7 @@ import Dimmed from '@components/shared/modal/Dimmed';
 import { ReactNode } from 'react';
 import Button from '@shared/button/Button';
 
-export default Modal;
+export default ScrollModal;
 
 interface ModalProps {
   open: boolean;
@@ -11,7 +11,7 @@ interface ModalProps {
   onButtonClick: () => void;
 }
 
-function Modal({ open, title, content, onButtonClick }: ModalProps) {
+function ScrollModal({ open, title, content, onButtonClick }: ModalProps) {
   if (!open) {
     return null;
   }

@@ -3,9 +3,9 @@
 import useScreenStore from '@/stores/useScreenStore';
 import { useEffect } from 'react';
 
-export default ExchangeGlobal;
+export default ScreenSize;
 
-function ExchangeGlobal() {
+function ScreenSize() {
   const setScreenSize = useScreenStore((s) => s.setScreenSize);
 
   useEffect(() => {

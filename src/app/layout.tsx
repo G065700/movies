@@ -3,8 +3,8 @@ import './globals.css';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 import Navbar from '@components/shared/navbar/Navbar';
-import ExchangeGlobal from '@components/client/ExchangeGlobal';
-import ExchangeModal from '@components/client/ExchangeModal';
+import ScreenSize from '@components/global/ScreenSize';
+import Modal from '@components/global/Modal';
 
 const gowunDodum = localFont({
   src: [
@@ -28,9 +28,12 @@ const gowunDodum = localFont({
 
 export const metadata: Metadata = {
   title: 'MOVIES',
-  description: '',
+  description: '박스오피스 및 영화 정보를 제공합니다.',
+  keywords: '박스오피스, 영화 검색, 영화인 검색, boxoffice, movie',
+  other: {
+    'naver-site-verification': process.env.NAVER_SITE_VERIFICATION!,
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,8 +42,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={gowunDodum.className}>
-        <ExchangeModal />
-        <ExchangeGlobal />
+        <ScreenSize />
+        <Modal />
         <Navbar />
         {children}
       </body>

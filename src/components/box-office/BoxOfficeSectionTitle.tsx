@@ -1,8 +1,8 @@
 import { parseISO, format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import InformationIcon from '@components/box-office/InformationIcon';
+import BoxOfficeSectionInformationIcon from '@components/box-office/BoxOfficeSectionInformationIcon';
 
-export default BoxOfficeByPeriodTitle;
+export default BoxOfficeSectionTitle;
 
 interface BoxOfficeCardListTitleProps {
   data: {
@@ -11,10 +11,11 @@ interface BoxOfficeCardListTitleProps {
   };
 }
 
-function BoxOfficeByPeriodTitle({ data }: BoxOfficeCardListTitleProps) {
+function BoxOfficeSectionTitle({ data }: BoxOfficeCardListTitleProps) {
   const { boxOfficeType, range } = data;
 
   const rangeArr = range.split('~');
+
   const startDate = format(parseISO(rangeArr[0]), 'yyyy년 M월 d일 eeee', {
     locale: ko,
   });
@@ -30,7 +31,7 @@ function BoxOfficeByPeriodTitle({ data }: BoxOfficeCardListTitleProps) {
       <span className="text-lg hidden sm:block">
         ({isDailyRange ? startDate : startDate + ' ~ ' + endDate})
       </span>
-      <InformationIcon data={{ isDailyRange }} />
+      <BoxOfficeSectionInformationIcon data={{ isDailyRange }} />
     </div>
   );
 }

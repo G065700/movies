@@ -18,7 +18,6 @@ function MovieModal({
   audiAcc: string;
   salesAcc: string;
 }) {
-  // ['감독', '출연', '촬영', '미술팀', '제작사', '투자사', '배급사']
   const roleGroups = [
     ...new Set(movie.staffs.staff.map((s) => s.staffRoleGroup)),
   ];

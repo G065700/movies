@@ -25,7 +25,7 @@ function MakersSearchResult({ data }: MakersSearchResultProps) {
           <th className="inline-block w-[65%] leading-[40px]">필모리스트</th>
         </tr>
       </thead>
-      <tbody className="block max-h-[calc(100dvh_-_235px)] overflow-y-auto">
+      <tbody className="block max-h-[calc(100dvh_-_255px)] overflow-y-auto">
         {(!searchResult || searchResult.length === 0) && (
           <tr className="h-20 bg-gray-300 table w-full">
             <th scope="row">검색 조건과 일치하는 영화인이 없습니다.</th>

@@ -1,4 +1,4 @@
-export default BoxOfficeSwiperCardRank;
+export default BoxOfficeSwiperSlideRank;
 
 interface BoxOfficeCardRankProps {
   data: {
@@ -6,7 +6,7 @@ interface BoxOfficeCardRankProps {
   };
 }
 
-function BoxOfficeSwiperCardRank({ data }: BoxOfficeCardRankProps) {
+function BoxOfficeSwiperSlideRank({ data }: BoxOfficeCardRankProps) {
   const { rank } = data;
 
   let content;

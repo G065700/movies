@@ -1,17 +1,17 @@
 'use client';
 
 import useModalStore, { getModalDefaultValue } from '@/stores/useModalStore';
-import Modal from '@shared/modal/Modal';
+import ScrollModal from '@shared/modal/ScrollModal';
 
-export default ExchangeModal;
+export default Modal;
 
-function ExchangeModal() {
+function Modal() {
   const { setModal, getModal } = useModalStore();
 
   const { open, title, content, onButtonClick } = getModal();
 
   return (
-    <Modal
+    <ScrollModal
       open={open}
       title={title}
       content={content}

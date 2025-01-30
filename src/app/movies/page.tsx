@@ -23,6 +23,10 @@ export default async function Movies({ searchParams }: MoviesProps) {
     countPerPage: params.countPerPage || '20',
   };
 
+  const {
+    data: { TotalCount: totalCount, Data: data },
+  } = movies;
+
   return (
     <Container className="min-w-[980px]">
       <MoviesSearchFilter data={{ searchParams: searchParamsForView }} />
@@ -30,14 +34,14 @@ export default async function Movies({ searchParams }: MoviesProps) {
       <MoviesSearchResultSummary
         data={{
           searchParams: searchParamsForView,
-          totalCount: movies.data.TotalCount,
+          totalCount: totalCount,
         }}
       />
-      <MoviesSearchResult data={{ searchResult: movies.data.Data[0].Result }} />
+      <MoviesSearchResult data={{ searchResult: data[0].Result }} />
       <MoviesPagination
         data={{
           searchParams: searchParamsForView,
-          totalCount: movies.data.TotalCount,
+          totalCount: totalCount,
         }}
       />
     </Container>

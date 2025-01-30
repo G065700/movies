@@ -125,12 +125,6 @@ export type BoxOfficeMovieAllInfo = {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-export type BoxOfficeMovieListByPeriodForView = {
-  boxOfficeType: string;
-  range: string;
-  boxOfficeList: BoxOfficeMovieForView[];
-};
-
 export type BoxOfficeMovieForView = {
   summary: {
     rank: string;

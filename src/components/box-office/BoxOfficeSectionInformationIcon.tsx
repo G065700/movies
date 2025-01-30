@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 
-export default InformationIcon;
+export default BoxOfficeSectionInformationIcon;
 
-function InformationIcon({ data }: { data: { isDailyRange: boolean } }) {
+function BoxOfficeSectionInformationIcon({
+  data,
+}: {
+  data: { isDailyRange: boolean };
+}) {
   const { isDailyRange } = data;
 
   const [mouseOver, setMouseOver] = useState<boolean>(false);
