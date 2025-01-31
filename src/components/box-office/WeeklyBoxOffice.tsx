@@ -2,8 +2,8 @@ import BoxOfficeSectionTitle from '@components/box-office/BoxOfficeSectionTitle'
 import { KobisWeeklyBoxOfficeRes } from '@/types/box-office';
 import getWeeklyBoxOffice from '@actions/box-office/getWeeklyBoxOffice';
 import BoxOfficeSectionSwiperGuideText from '@components/box-office/BoxOfficeSectionSwiperGuideText';
-import BoxOfficeSectionContainer from '@components/box-office/BoxOfficeSectionContainer';
 import BoxOfficeSectionContent from '@components/box-office/BoxOfficeSectionContent';
+import BoxOfficeSectionContainer from '@components/box-office/BoxOfficeSectionContainer';
 
 export default WeeklyBoxOffice;
 
