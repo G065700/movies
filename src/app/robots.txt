@@ -1,3 +1,0 @@
-User-Agent: *
-Allow: /
-Sitemap: https://movies-theta-lovat.vercel.app/sitemap.xml
