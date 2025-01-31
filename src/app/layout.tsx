@@ -37,8 +37,10 @@ export const metadata: Metadata = {
       url: '/og-image.png',
     },
   },
-  other: {
-    'naver-site-verification': process.env.NAVER_SITE_VERIFICATION!,
+  verification: {
+    other: {
+      'naver-site-verification': process.env.NAVER_SITE_VERIFICATION!,
+    },
   },
 };
 export default function RootLayout({
