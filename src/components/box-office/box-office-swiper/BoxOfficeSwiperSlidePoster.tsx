@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default BoxOfficeSwiperCardPoster;
+export default BoxOfficeSwiperSlidePoster;
 
 interface BoxOfficeCardRankProps {
   data: {
@@ -9,7 +9,7 @@ interface BoxOfficeCardRankProps {
   };
 }
 
-function BoxOfficeSwiperCardPoster({ data }: BoxOfficeCardRankProps) {
+function BoxOfficeSwiperSlidePoster({ data }: BoxOfficeCardRankProps) {
   const { posterSrc, movieNm } = data;
   return (
     <div

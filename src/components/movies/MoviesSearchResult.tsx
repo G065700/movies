@@ -32,7 +32,7 @@ function MoviesSearchResult({ data }: MoviesSearchResultProps) {
           <th className="inline-block w-[10%] leading-[40px]">개봉일</th>
         </tr>
       </thead>
-      <tbody className="block max-h-[calc(100dvh_-_235px)] overflow-y-auto">
+      <tbody className="block max-h-[calc(100dvh_-_255px)] overflow-y-auto">
         {(!searchResult || searchResult.length === 0) && (
           <tr className="h-20 bg-gray-300 table w-full">
             <th scope="row">검색 조건과 일치하는 영화가 없습니다.</th>

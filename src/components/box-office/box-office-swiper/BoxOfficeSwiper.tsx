@@ -3,9 +3,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import BoxOfficeSwiperCardRank from '@components/box-office/box-office-swiper/BoxOfficeSwiperCardRank';
-import BoxOfficeSwiperCardPoster from '@components/box-office/box-office-swiper/BoxOfficeSwiperCardPoster';
-import BoxOfficeSwiperCardContent from '@components/box-office/box-office-swiper/BoxOfficeSwiperCardContent';
+import BoxOfficeSwiperSlideRank from '@components/box-office/box-office-swiper/BoxOfficeSwiperSlideRank';
+import BoxOfficeSwiperSlidePoster from '@components/box-office/box-office-swiper/BoxOfficeSwiperSlidePoster';
+import BoxOfficeSwiperSlideContent from '@components/box-office/box-office-swiper/BoxOfficeSwiperSlideContent';
 import { type ReactNode } from 'react';
 import { BoxOfficeMovieForView } from '@/types/box-office';
 import useScreenStore from '@/stores/useScreenStore';
@@ -26,18 +26,20 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
   const { setModal } = useModalStore();
 
   const handleSwiperSlide = async (movie: BoxOfficeMovieForView) => {
-    if (!movie.detail) return null;
-
     setModal({
       open: true,
       title: `[${movie.summary.movieNm}] 영화 정보`,
-      content: (
+      content: movie.detail ? (
         <MovieModal
           movie={movie.detail}
           movieNm={movie.summary.movieNm}
           audiAcc={movie.summary.audiAcc}
           salesAcc={movie.summary.salesAcc}
         />
+      ) : (
+        <p className="text-center text-lg font-black my-6">
+          상세 영화 정보가 존재하지 않습니다.
+        </p>
       ),
     });
   };
@@ -68,16 +70,16 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
               xl:flex-row
             "
           >
-            <BoxOfficeSwiperCardRank
+            <BoxOfficeSwiperSlideRank
               data={{ rank: Number(movie.summary.rank) }}
             />
-            <BoxOfficeSwiperCardPoster
+            <BoxOfficeSwiperSlidePoster
               data={{
                 posterSrc: movie.summary.poster,
                 movieNm: movie.summary.movieNm,
               }}
             />
-            <BoxOfficeSwiperCardContent data={{ movie }} />
+            <BoxOfficeSwiperSlideContent data={{ movie }} />
           </div>
         </SwiperSlide>
       ))}

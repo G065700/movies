@@ -9,8 +9,7 @@ const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
       className={`
-        w-[calc(100dvw_-_180px)]
-        min-h-[100dvh]
+        min-h-full
         p-5
         ml-[180px]
         ${className ? className : ''}

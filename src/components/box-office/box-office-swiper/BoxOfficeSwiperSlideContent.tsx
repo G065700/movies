@@ -1,8 +1,8 @@
 import { BoxOfficeMovieForView } from '@/types/box-office';
 
-export default BoxOfficeSwiperCardContent;
+export default BoxOfficeSwiperSlideContent;
 
-function BoxOfficeSwiperCardContent({
+function BoxOfficeSwiperSlideContent({
   data,
 }: {
   data: {

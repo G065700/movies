@@ -22,6 +22,12 @@ export default async function Makers({ searchParams }: MakersProps) {
     countPerPage: params.countPerPage || '20',
   };
 
+  const {
+    data: {
+      peopleListResult: { totCnt, peopleList },
+    },
+  } = makers;
+
   return (
     <Container className="min-w-[980px]">
       <MakersSearchFilter data={{ searchParams: searchParamsForView }} />
@@ -29,16 +35,14 @@ export default async function Makers({ searchParams }: MakersProps) {
       <MakersSearchResultSummary
         data={{
           searchParams: searchParamsForView,
-          totalCount: makers.data.peopleListResult.totCnt,
+          totalCount: totCnt,
         }}
       />
-      <MakersSearchResult
-        data={{ searchResult: makers.data.peopleListResult.peopleList }}
-      />
+      <MakersSearchResult data={{ searchResult: peopleList }} />
       <MakersPagination
         data={{
           searchParams: searchParamsForView,
-          totalCount: makers.data.peopleListResult.totCnt,
+          totalCount: totCnt,
         }}
       />
     </Container>
