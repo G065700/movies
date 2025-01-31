@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   title: 'MOVIES',
   description: '박스오피스 및 영화 정보를 제공합니다.',
   keywords: '박스오피스, 영화 검색, 영화인 검색, boxoffice, movie',
+  openGraph: {
+    siteName: 'MOVIES',
+    description: '박스오피스 및 영화 정보를 제공합니다.',
+    images: {
+      url: '/og-image.png',
+    },
+  },
   other: {
     'naver-site-verification': process.env.NAVER_SITE_VERIFICATION!,
   },
