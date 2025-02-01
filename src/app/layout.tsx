@@ -33,13 +33,12 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: 'MOVIES',
     description: '박스오피스 및 영화 정보를 제공합니다.',
-    images: {
-      url: '/og-image.png',
-    },
   },
   verification: {
     other: {
-      'naver-site-verification': process.env.NAVER_SITE_VERIFICATION!,
+      'naver-site-verification': [
+        process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION!,
+      ],
     },
   },
 };
