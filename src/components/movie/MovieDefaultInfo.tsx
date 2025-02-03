@@ -1,4 +1,4 @@
-import { MovieResponseDataResultForDefaultInfo } from '@/types/movie';
+import { MovieResponseDataResultForDefaultInfo } from '@/types/movies/movie';
 import DataRow from '@shared/data/DataRow';
 import Data from '@shared/data/Data';
 

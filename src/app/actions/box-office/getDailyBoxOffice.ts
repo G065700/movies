@@ -1,31 +1,23 @@
 'use server';
 
-import { KobisDailyBoxOfficeRes } from '@/types/box-office';
+import { KobisDailyBoxOfficeRes } from '@/types/box-office/box-office';
+import { getYesterday } from '@/helpers/getDate';
+import { revalidateTime } from '@/data/validation';
 
-async function retrieveDailyBoxOffice(targetDt: string) {
+export default async function getDailyBoxOffice() {
+  const yesterday = getYesterday();
+
   const res = await fetch(
-    `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${targetDt}`,
+    `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`,
     {
+      method: 'GET',
       next: {
-        revalidate: 3600,
+        revalidate: revalidateTime,
       },
     },
   );
 
   const data: KobisDailyBoxOfficeRes = await res.json();
-  return data;
-}
-
-export default async function getDailyBoxOffice() {
-  const d = new Date();
-  d.setDate(d.getDate() - 1);
-
-  const targetDt =
-    d.getFullYear() +
-    String(d.getMonth() + 1).padStart(2, '0') +
-    String(d.getDate()).padStart(2, '0');
-
-  const data = await retrieveDailyBoxOffice(targetDt);
 
   return {
     data,

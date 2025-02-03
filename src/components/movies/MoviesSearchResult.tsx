@@ -1,5 +1,11 @@
-import { KmdbMovieInfo } from '@/types/movies';
-import Link from 'next/link';
+import { KmdbMovieInfo } from '@/types/movies/movies';
+import TableHeader, { TableHeaderCol } from '@shared/table/TableHeader';
+import TableBodyRow from '@shared/table/TableBodyRow';
+import ClickableTableBodyColHeader from '@shared/table/clickable-table-body-column/ClickableTableBodyColHeader';
+import ClickableTableBodyCol from '@shared/table/clickable-table-body-column/ClickableTableBodyCol';
+import TableBodyDataNotExistRow from '@shared/table/TableBodyDataNotExistRow';
+import TableBody from '@shared/table/TableBody';
+import Table from '@shared/table/Table';
 
 export default MoviesSearchResult;
 
@@ -10,91 +16,65 @@ interface MoviesSearchResultProps {
 }
 
 const regEx = / !HS | !HE /g;
+
+const tableHeaderRow: TableHeaderCol[] = [
+  { name: '영화명', width: 'w-[calc(40%_-_7px)]', className: 'pl-3' },
+  { name: '감독명', width: 'w-[calc(15%_-_2.5px)]' },
+  { name: '장르', width: 'w-[calc(15%_-_2.5px)]' },
+  { name: '등급', width: 'w-[calc(20%_-_3px)]' },
+  { name: '개봉일', width: 'w-[10%]' },
+];
+
 function MoviesSearchResult({ data }: MoviesSearchResultProps) {
   const { searchResult } = data;
 
   return (
-    <table className="w-full table-fixed my-[10px] rounded-lg overflow-hidden">
-      <thead>
-        <tr className="bg-gray-400">
-          <th className="inline-block w-[calc(40%_-_7px)] leading-[40px]">
-            영화명
-          </th>
-          <th className="inline-block w-[calc(15%_-_2.5px)] leading-[40px]">
-            감독명
-          </th>
-          <th className="inline-block w-[calc(15%_-_2.5px)] leading-[40px]">
-            장르
-          </th>
-          <th className="inline-block w-[calc(20%_-_3px)] leading-[40px]">
-            등급
-          </th>
-          <th className="inline-block w-[10%] leading-[40px]">개봉일</th>
-        </tr>
-      </thead>
-      <tbody className="block max-h-[calc(100dvh_-_255px)] overflow-y-auto">
+    <Table>
+      <TableHeader data={{ tableHeaderRow }} />
+
+      <TableBody>
         {(!searchResult || searchResult.length === 0) && (
-          <tr className="h-20 bg-gray-300 table w-full">
-            <th scope="row">검색 조건과 일치하는 영화가 없습니다.</th>
-          </tr>
+          <TableBodyDataNotExistRow text="검색 조건과 일치하는 영화가 없습니다." />
         )}
         {searchResult?.map((movie: KmdbMovieInfo) => (
-          <tr
-            key={movie.DOCID}
-            className={`
-                block
-                h-[40px]
-                even:bg-slate-200
-                odd:bg-white
-                cursor-pointer
-                hover:bg-gray-950 hover:text-white
-              `}
-          >
-            <th className="inline-block w-[40%] h-full">
-              <Link
-                href={`/movies/${movie.DOCID}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {movie.title.replace(regEx, '')}
-              </Link>
-            </th>
-            <td className="inline-block w-[15%] h-full">
-              <Link
-                href={`/movies/${movie.DOCID}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {movie.directors.director[0].directorNm.replace(regEx, '')}{' '}
-                {movie.directors.director.length > 1 &&
-                  `외 ${movie.directors.director.length - 1}명`}
-              </Link>
-            </td>
-            <td className="inline-block w-[15%] h-full">
-              <Link
-                href={`/movies/${movie.DOCID}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {movie.genre}
-              </Link>
-            </td>
-            <td className="inline-block w-[20%] h-full">
-              <Link
-                href={`/movies/${movie.DOCID}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {movie.rating}
-              </Link>
-            </td>
-            <td className="inline-block w-[10%] h-full">
-              <Link
-                href={`/movies/${movie.DOCID}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {movie.repRlsDate}
-              </Link>
-            </td>
-          </tr>
+          <TableBodyRow key={movie.DOCID}>
+            <ClickableTableBodyColHeader
+              data={{
+                href: `/movies/${movie.DOCID}`,
+                thStyle: 'w-[40%]',
+                linkStyle: 'pl-3',
+              }}
+            >
+              {movie.title.replace(regEx, '')}
+            </ClickableTableBodyColHeader>
+            <ClickableTableBodyCol
+              data={{ href: `/movies/${movie.DOCID}`, tdStyle: 'w-[15%]' }}
+            >
+              {movie.directors.director[0].directorNm.replace(regEx, '')}{' '}
+              {movie.directors.director.length > 1 &&
+                `외 ${movie.directors.director.length - 1}명`}
+            </ClickableTableBodyCol>
+
+            <ClickableTableBodyCol
+              data={{ href: `/movies/${movie.DOCID}`, tdStyle: 'w-[15%]' }}
+            >
+              {movie.genre}
+            </ClickableTableBodyCol>
+
+            <ClickableTableBodyCol
+              data={{ href: `/movies/${movie.DOCID}`, tdStyle: 'w-[20%]' }}
+            >
+              {movie.rating}
+            </ClickableTableBodyCol>
+
+            <ClickableTableBodyCol
+              data={{ href: `/movies/${movie.DOCID}`, tdStyle: 'w-[10%]' }}
+            >
+              {movie.repRlsDate}
+            </ClickableTableBodyCol>
+          </TableBodyRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }

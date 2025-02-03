@@ -1,11 +1,15 @@
 import Container from '@shared/container/Container';
 import getMovies from '@actions/movies/getMovies';
 import MoviesSearchFilter from '@components/movies/MoviesSearchFilter';
-import { MovieSearchParamsForView, MoviesSearchParams } from '@/types/movies';
 import Division from '@shared/division/Division';
 import MoviesSearchResultSummary from '@components/movies/MoviesSearchResultSummary';
 import MoviesSearchResult from '@components/movies/MoviesSearchResult';
 import MoviesPagination from '@components/movies/MoviesPagination';
+import {
+  MovieSearchParamsForView,
+  MoviesSearchParams,
+} from '@/types/movies/movies';
+import { defaultPaginationValue } from '@/data/pagination';
 
 interface MoviesProps {
   searchParams: Promise<MoviesSearchParams>;
@@ -19,8 +23,8 @@ export default async function Movies({ searchParams }: MoviesProps) {
     title: params.title || '',
     director: params.director || '',
     actor: params.actor || '',
-    page: params.page || '1',
-    countPerPage: params.countPerPage || '20',
+    page: params.page || defaultPaginationValue.page,
+    countPerPage: params.countPerPage || defaultPaginationValue.countPerPage,
   };
 
   const {
@@ -28,7 +32,7 @@ export default async function Movies({ searchParams }: MoviesProps) {
   } = movies;
 
   return (
-    <Container className="min-w-[980px]">
+    <Container className="w-full sm:w-[calc(100%_-_180px)]">
       <MoviesSearchFilter data={{ searchParams: searchParamsForView }} />
       <Division />
       <MoviesSearchResultSummary

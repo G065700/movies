@@ -3,8 +3,9 @@
 import TextField from '@components/shared/form/TextField';
 import { useState, useCallback, ChangeEvent, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { MakersSearchParamsForView } from '@/types/makers';
+import { MakersSearchParamsForView } from '@/types/makers/makers';
 import Button from '@shared/button/Button';
+import { defaultPaginationValue } from '@/data/pagination';
 
 export default MakersSearchFilter;
 
@@ -34,10 +35,10 @@ function MakersSearchFilter({ data }: MakersSearchFilterProps) {
     }));
   }, []);
 
-  const handleSearchButton = () => {
+  const handleSearchButton = useCallback(() => {
     const tempSearchParams: MakersSearchParamsForView = {
       ...formValues,
-      page: '1',
+      page: defaultPaginationValue.page,
     };
 
     const qsArr: string[] = [];
@@ -49,11 +50,11 @@ function MakersSearchFilter({ data }: MakersSearchFilterProps) {
     });
 
     router.push(`${pathname}?${qsArr.join('&')}`);
-  };
+  }, [formValues, pathname, router]);
 
   return (
-    <div className="flex gap-5">
-      <div className="flex flex-wrap gap-[15px]">
+    <div className="flex justify-between gap-5">
+      <div className="flex gap-[15px]">
         <TextField
           label="영화인명"
           name="peopleNm"
@@ -77,9 +78,7 @@ function MakersSearchFilter({ data }: MakersSearchFilterProps) {
           }}
         />
       </div>
-      <Button onClick={handleSearchButton} className="px-6">
-        검색
-      </Button>
+      <Button onClick={handleSearchButton}>검색</Button>
     </div>
   );
 }

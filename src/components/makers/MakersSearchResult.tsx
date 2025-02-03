@@ -1,5 +1,11 @@
-import { MakersResponseDataPeople } from '@/types/makers';
-import Link from 'next/link';
+import { MakersResponseDataPeople } from '@/types/makers/makers';
+import TableHeader, { TableHeaderCol } from '@shared/table/TableHeader';
+import TableBodyRow from '@shared/table/TableBodyRow';
+import ClickableTableBodyColHeader from '@shared/table/clickable-table-body-column/ClickableTableBodyColHeader';
+import ClickableTableBodyCol from '@shared/table/clickable-table-body-column/ClickableTableBodyCol';
+import TableBody from '@shared/table/TableBody';
+import Table from '@shared/table/Table';
+import TableBodyDataNotExistRow from '@shared/table/TableBodyDataNotExistRow';
 
 export default MakersSearchResult;
 
@@ -9,67 +15,46 @@ interface MakersSearchResultProps {
   };
 }
 
+const tableHeaderRow: TableHeaderCol[] = [
+  { name: '영화인명', width: 'w-[calc(20%_-_3px)]', className: 'pl-3' },
+  { name: '분야', width: 'w-[calc(15%_-_2px)]' },
+  { name: '필모리스트', width: 'w-[65%]' },
+];
+
 function MakersSearchResult({ data }: MakersSearchResultProps) {
   const { searchResult } = data;
 
   return (
-    <table className="w-full table-fixed my-[10px] rounded-lg overflow-hidden">
-      <thead>
-        <tr className="bg-gray-400">
-          <th className="inline-block w-[calc(20%_-_3px)] leading-[40px]">
-            영화인명
-          </th>
-          <th className="inline-block w-[calc(15%_-_2px)] leading-[40px]">
-            분야
-          </th>
-          <th className="inline-block w-[65%] leading-[40px]">필모리스트</th>
-        </tr>
-      </thead>
-      <tbody className="block max-h-[calc(100dvh_-_255px)] overflow-y-auto">
+    <Table>
+      <TableHeader data={{ tableHeaderRow }} />
+      <TableBody>
         {(!searchResult || searchResult.length === 0) && (
-          <tr className="h-20 bg-gray-300 table w-full">
-            <th scope="row">검색 조건과 일치하는 영화인이 없습니다.</th>
-          </tr>
+          <TableBodyDataNotExistRow text="검색 조건과 일치하는 영화인이 없습니다." />
         )}
         {searchResult?.map((maker: MakersResponseDataPeople) => (
-          <tr
-            key={maker.peopleCd}
-            className={`
-                block
-                h-[40px]
-                even:bg-slate-200
-                odd:bg-white
-                cursor-pointer
-                hover:bg-gray-950 hover:text-white
-              `}
-          >
-            <th className="inline-block w-[20%] h-full">
-              <Link
-                href={`/makers/${maker.peopleCd}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {maker.peopleNm}
-              </Link>
-            </th>
-            <td className="inline-block w-[15%] h-full">
-              <Link
-                href={`/makers/${maker.peopleCd}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {maker.repRoleNm}
-              </Link>
-            </td>
-            <td className="inline-block w-[65%] h-full">
-              <Link
-                href={`/makers/${maker.peopleCd}`}
-                className="block w-full h-full leading-[40px] overflow-hidden text-ellipsis whitespace-nowrap"
-              >
-                {maker.filmoNames?.split('|').join(' | ')}
-              </Link>
-            </td>
-          </tr>
+          <TableBodyRow key={maker.peopleCd}>
+            <ClickableTableBodyColHeader
+              data={{
+                href: `/makers/${maker.peopleCd}`,
+                thStyle: 'w-[20%]',
+                linkStyle: 'pl-3',
+              }}
+            >
+              {maker.peopleNm}
+            </ClickableTableBodyColHeader>
+            <ClickableTableBodyCol
+              data={{ href: `/makers/${maker.peopleCd}`, tdStyle: 'w-[15%]' }}
+            >
+              {maker.repRoleNm}
+            </ClickableTableBodyCol>
+            <ClickableTableBodyCol
+              data={{ href: `/makers/${maker.peopleCd}`, tdStyle: 'w-[65%]' }}
+            >
+              {maker.filmoNames?.split('|').join(' | ')}
+            </ClickableTableBodyCol>
+          </TableBodyRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }

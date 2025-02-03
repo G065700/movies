@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
-import Navbar from '@components/shared/navbar/Navbar';
+import Navbar from '@shared/nav/Navbar';
 import ScreenSize from '@components/global/ScreenSize';
 import Modal from '@components/global/Modal';
+import MobileMenuButton from '@shared/nav/MobileMenuButton';
+import Footer from '@shared/footer/Footer';
 
 const gowunDodum = localFont({
   src: [
@@ -42,6 +44,7 @@ export const metadata: Metadata = {
     },
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,6 +57,8 @@ export default function RootLayout({
         <Modal />
         <Navbar />
         {children}
+        <MobileMenuButton />
+        <Footer />
       </body>
     </html>
   );

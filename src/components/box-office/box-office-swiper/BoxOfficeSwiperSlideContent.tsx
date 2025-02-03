@@ -1,4 +1,4 @@
-import { BoxOfficeMovieForView } from '@/types/box-office';
+import { BoxOfficeMovieForView } from '@/types/box-office/box-office';
 
 export default BoxOfficeSwiperSlideContent;
 
@@ -23,7 +23,9 @@ function BoxOfficeSwiperSlideContent({
         h-full
         w-full
         items-center
+        pr-[10px]
         pl-[80px]
+        sm:py-0
         sm:pl-0
         sm:flex-col
         sm:items-start

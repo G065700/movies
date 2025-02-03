@@ -1,12 +1,12 @@
 import getMaker from '@actions/makers/getMaker';
 import Container from '@shared/container/Container';
 import MakerDefaultInfo from '@components/maker/MakerDefaultInfo';
+import MakerFilmosInfo from '@components/maker/MakerFilmosInfo';
+import BackButton from '@components/maker/BackButton';
 import {
   MakerResponsePeopleInfoFilmo,
   MakerResponsePeopleInfoForDefaultInfo,
-} from '@/types/maker';
-import MakerFilmosInfo from '@components/maker/MakerFilmosInfo';
-import BackButton from '@components/maker/BackButton';
+} from '@/types/makers/maker';
 
 export default async function MakerPage({
   params,

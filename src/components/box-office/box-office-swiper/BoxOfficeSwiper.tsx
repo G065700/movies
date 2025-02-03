@@ -7,7 +7,7 @@ import BoxOfficeSwiperSlideRank from '@components/box-office/box-office-swiper/B
 import BoxOfficeSwiperSlidePoster from '@components/box-office/box-office-swiper/BoxOfficeSwiperSlidePoster';
 import BoxOfficeSwiperSlideContent from '@components/box-office/box-office-swiper/BoxOfficeSwiperSlideContent';
 import { type ReactNode } from 'react';
-import { BoxOfficeMovieForView } from '@/types/box-office';
+import { BoxOfficeMovieForView } from '@/types/box-office/box-office';
 import useScreenStore from '@/stores/useScreenStore';
 import useModalStore from '@/stores/useModalStore';
 import MovieModal from '@components/box-office/movie-modal/MovieModal';
@@ -59,7 +59,7 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
               cursor-pointer
               bg-white
               h-full
-              min-w-[586px]
+              min-w-[300px]
               border-solid border-2 border-black
               rounded-lg
               sm:flex
@@ -90,23 +90,21 @@ function BoxOfficeSwiper({ data }: BoxOfficeCardSwiperProps) {
 function BoxOfficeSwiperWrapper({ children }: { children: ReactNode }) {
   const innerWidth = useScreenStore((s) => s.getScreenSize().width);
 
+  if (innerWidth === 0) {
+    return <></>;
+  }
+
   return (
-    <>
-      {innerWidth && (
-        <Swiper
-          spaceBetween={10}
-          direction={innerWidth <= 856 ? 'vertical' : 'horizontal'}
-          slidesPerView={
-            innerWidth &&
-            (innerWidth > 2094 || (innerWidth > 1024 && innerWidth < 1576)
-              ? 4
-              : 3)
-          }
-          className="h-[calc(100%_-_56px)] "
-        >
-          {children}
-        </Swiper>
-      )}
-    </>
+    <Swiper
+      spaceBetween={10}
+      direction={innerWidth < 856 ? 'vertical' : 'horizontal'}
+      slidesPerView={
+        innerWidth &&
+        (innerWidth > 2094 || (innerWidth > 1024 && innerWidth < 1576) ? 4 : 3)
+      }
+      className="h-[calc(100%_-_56px)] "
+    >
+      {children}
+    </Swiper>
   );
 }

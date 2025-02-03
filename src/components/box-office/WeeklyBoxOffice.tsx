@@ -1,5 +1,5 @@
 import BoxOfficeSectionTitle from '@components/box-office/BoxOfficeSectionTitle';
-import { KobisWeeklyBoxOfficeRes } from '@/types/box-office';
+import { KobisWeeklyBoxOfficeRes } from '@/types/box-office/box-office';
 import getWeeklyBoxOffice from '@actions/box-office/getWeeklyBoxOffice';
 import BoxOfficeSectionSwiperGuideText from '@components/box-office/BoxOfficeSectionSwiperGuideText';
 import BoxOfficeSectionContent from '@components/box-office/BoxOfficeSectionContent';

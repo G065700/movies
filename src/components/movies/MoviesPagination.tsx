@@ -1,8 +1,10 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { MovieSearchParamsForView } from '@/types/movies';
+import { MovieSearchParamsForView } from '@/types/movies/movies';
 import Pagination from '@shared/pagination/Pagination';
+import { defaultPaginationValue } from '@/data/pagination';
+import { useCallback, useMemo } from 'react';
 
 export default MoviesPagination;
 
@@ -19,34 +21,44 @@ function MoviesPagination({ data }: PaginationProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const defaultValues: MovieSearchParamsForView = {
-    title: searchParams.title || '',
-    releaseDts: searchParams.releaseDts || '',
-    releaseDte: searchParams.releaseDte || '',
-    director: searchParams.director || '',
-    actor: searchParams.actor || '',
-    page: searchParams.page || '1',
-    countPerPage: searchParams.countPerPage || '20',
-  };
+  const defaultValues: MovieSearchParamsForView = useMemo(
+    () => ({
+      title: searchParams.title || '',
+      releaseDts: searchParams.releaseDts || '',
+      releaseDte: searchParams.releaseDte || '',
+      director: searchParams.director || '',
+      actor: searchParams.actor || '',
+      page: searchParams.page || defaultPaginationValue.page,
+      countPerPage:
+        searchParams.countPerPage || defaultPaginationValue.countPerPage,
+    }),
+    [searchParams],
+  );
 
-  const selectedPage = Number(defaultValues.page);
+  const selectedPage = useMemo(
+    () => Number(defaultValues.page),
+    [defaultValues.page],
+  );
 
-  const handlePage = (page: number) => {
-    const tempSearchParams: MovieSearchParamsForView = {
-      ...defaultValues,
-      page: String(page),
-    };
+  const handlePage = useCallback(
+    (page: number) => {
+      const tempSearchParams: MovieSearchParamsForView = {
+        ...defaultValues,
+        page: String(page),
+      };
 
-    const qsArr: string[] = [];
+      const qsArr: string[] = [];
 
-    Object.keys(tempSearchParams).forEach((key) => {
-      if (tempSearchParams[key]) {
-        qsArr.push(`${key}=${tempSearchParams[key]}`);
-      }
-    });
+      Object.keys(tempSearchParams).forEach((key) => {
+        if (tempSearchParams[key]) {
+          qsArr.push(`${key}=${tempSearchParams[key]}`);
+        }
+      });
 
-    router.push(`${pathname}?${qsArr.join('&')}`);
-  };
+      router.push(`${pathname}?${qsArr.join('&')}`);
+    },
+    [defaultValues, pathname, router],
+  );
 
   return (
     <Pagination

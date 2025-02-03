@@ -7,19 +7,21 @@ export default BoxOfficeSectionInformationIcon;
 function BoxOfficeSectionInformationIcon({
   data,
 }: {
-  data: { isDailyRange: boolean };
+  data: { isDailyRange: boolean; endDate: string };
 }) {
-  const { isDailyRange } = data;
+  const { isDailyRange, endDate } = data;
 
   const [mouseOver, setMouseOver] = useState<boolean>(false);
 
   const text = isDailyRange ? (
-    '어제의 박스오피스 1 ~ 10위'
+    <>
+      어제의 박스오피스 영화 1 ~ 10위 입니다.
+      <br />
+      <br />* 누적관객수: 어제까지의 누적관객수
+    </>
   ) : (
     <>
-      지난 월요일부터 일요일까지의 박스오피스 1 ~ 10위
-      <br />
-      매주 월요일에 갱신된다.
+      지난 월요일부터 일요일까지의 박스오피스 영화 1 ~ 10위 입니다.
       <br />
       <br />
       <div className="flex gap-3">
@@ -40,6 +42,8 @@ function BoxOfficeSectionInformationIcon({
           조회된 기간은 &#39;2024년 1월 6일 월요일 ~ 2025년 1월 12일 일요일&#39;
         </span>
       </div>
+      <br />
+      <span>{`* 누적관객수: ${endDate}까지의 누적관객수`}</span>
     </>
   );
 

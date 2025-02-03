@@ -8,12 +8,6 @@ export default {
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-      },
-    },
     screens: {
       sm: '856px',
       md: '1024px',

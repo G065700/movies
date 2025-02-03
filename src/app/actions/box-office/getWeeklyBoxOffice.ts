@@ -1,34 +1,23 @@
 'use server';
 
-import { KobisWeeklyBoxOfficeRes } from '@/types/box-office';
+import { KobisWeeklyBoxOfficeRes } from '@/types/box-office/box-office';
+import { getLastSunday } from '@/helpers/getDate';
+import { revalidateTime } from '@/data/validation';
 
-async function retrieveWeeklyBoxOffice(lastSunday: string) {
+export default async function getWeeklyBoxOffice() {
+  const lastSunday = getLastSunday();
+
   const res = await fetch(
     `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${lastSunday}&weekGb=0`,
     {
+      method: 'GET',
       next: {
-        revalidate: 3600,
+        revalidate: revalidateTime,
       },
     },
   );
+
   const data: KobisWeeklyBoxOfficeRes = await res.json();
-
-  return data;
-}
-
-export default async function getWeeklyBoxOffice() {
-  const d = new Date();
-  const day = d.getDay();
-  const dayOfTheWeek = day === 0 ? 7 : day;
-
-  d.setDate(d.getDate() - dayOfTheWeek);
-
-  const lastSunday =
-    d.getFullYear() +
-    String(d.getMonth() + 1).padStart(2, '0') +
-    String(d.getDate()).padStart(2, '0');
-
-  const data = await retrieveWeeklyBoxOffice(lastSunday);
 
   return {
     data,
