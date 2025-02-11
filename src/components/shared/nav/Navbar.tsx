@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { create } from 'zustand';
-import { Menu, menus } from '@components/shared/navbar/menus';
+import { Menu, menus } from '@shared/nav/menus';
 import { Fragment, useCallback, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -32,14 +32,14 @@ function Navbar() {
 
   return (
     <nav
-      className="
-        fixed
-        w-[180px]
-        h-[100dvh]
-        flex flex-col gap-[50px]
-        bg-white
-        p-5
-     "
+      className={`
+        hidden sm:fixed
+        sm:w-[180px]
+        sm:h-[100dvh]
+        sm:flex sm:flex-col sm:gap-[50px]
+        sm:bg-white
+        sm:p-5
+      `}
     >
       <Link
         href="/"
@@ -59,10 +59,9 @@ function Navbar() {
               >
                 <Link
                   href={menu.path}
-                  className={
-                    selectedMenu?.path === menu.path ? 'font-black' : ''
-                  }
+                  className={`flex items-center gap-2 ${selectedMenu?.path === menu.path ? 'font-black' : ''}`}
                 >
+                  {menu.icon}
                   {menu.name}
                 </Link>
               </li>
@@ -80,13 +79,10 @@ function Navbar() {
                   >
                     <Link
                       href={depth2Menu.path}
-                      className={
-                        selectedMenu?.path === depth2Menu.path
-                          ? 'font-black'
-                          : ''
-                      }
+                      className={`flex items-center gap-2 ${selectedMenu?.path === depth2Menu.path ? 'font-black' : ''}`}
                     >
-                      - {depth2Menu.name}
+                      {depth2Menu.icon}
+                      {depth2Menu.name}
                     </Link>
                   </li>
                 ))}

@@ -12,6 +12,7 @@ const Input = (
         px-[16px]
         text-md
         h-[36px]
+        w-full
         font-medium
         rounded-lg
         box-border

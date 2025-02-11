@@ -1,11 +1,15 @@
 import Container from '@shared/container/Container';
-import { MakersSearchParams, MakersSearchParamsForView } from '@/types/makers';
 import getMakers from '@actions/makers/getMakers';
 import MakersSearchFilter from '@components/makers/MakersSearchFilter';
 import Division from '@shared/division/Division';
 import MakersSearchResultSummary from '@components/makers/MakersSearchResultSummary';
 import MakersSearchResult from '@components/makers/MakersSearchResult';
 import MakersPagination from '@components/makers/MakersPagination';
+import {
+  MakersSearchParams,
+  MakersSearchParamsForView,
+} from '@/types/makers/makers';
+import { defaultPaginationValue } from '@/data/pagination';
 
 interface MakersProps {
   searchParams: Promise<MakersSearchParams>;
@@ -18,8 +22,8 @@ export default async function Makers({ searchParams }: MakersProps) {
   const searchParamsForView: MakersSearchParamsForView = {
     peopleNm: params.peopleNm || '',
     filmoNames: params.filmoNames || '',
-    page: params.page || '1',
-    countPerPage: params.countPerPage || '20',
+    page: params.page || defaultPaginationValue.page,
+    countPerPage: params.countPerPage || defaultPaginationValue.countPerPage,
   };
 
   const {
@@ -29,7 +33,7 @@ export default async function Makers({ searchParams }: MakersProps) {
   } = makers;
 
   return (
-    <Container className="min-w-[980px]">
+    <Container className="w-full sm:w-[calc(100%_-_180px)]">
       <MakersSearchFilter data={{ searchParams: searchParamsForView }} />
       <Division />
       <MakersSearchResultSummary

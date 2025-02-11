@@ -1,9 +1,10 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { ChangeEvent } from 'react';
-import { MovieSearchParamsForView } from '@/types/movies';
+import { ChangeEvent, useCallback } from 'react';
+import { MovieSearchParamsForView } from '@/types/movies/movies';
 import CountPerPageSelect from '@shared/select/CountPerPageSelect';
+import { defaultPaginationValue } from '@/data/pagination';
 
 export default MoviesSearchResultSummary;
 
@@ -22,23 +23,26 @@ function MoviesSearchResultSummary({ data }: MoviesSearchResultSummaryProps) {
 
   const countPerPage = searchParams.countPerPage;
 
-  const handleCountPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
-    const tempSearchParams: MovieSearchParamsForView = {
-      ...searchParams,
-      page: '1',
-      countPerPage: e.target.value,
-    };
+  const handleCountPerPage = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const tempSearchParams: MovieSearchParamsForView = {
+        ...searchParams,
+        page: defaultPaginationValue.page,
+        countPerPage: e.target.value,
+      };
 
-    const qsArr: string[] = [];
+      const qsArr: string[] = [];
 
-    Object.keys(tempSearchParams).forEach((key) => {
-      if (tempSearchParams[key]) {
-        qsArr.push(`${key}=${tempSearchParams[key]}`);
-      }
-    });
+      Object.keys(tempSearchParams).forEach((key) => {
+        if (tempSearchParams[key]) {
+          qsArr.push(`${key}=${tempSearchParams[key]}`);
+        }
+      });
 
-    router.push(`${pathname}?${qsArr.join('&')}`);
-  };
+      router.push(`${pathname}?${qsArr.join('&')}`);
+    },
+    [searchParams, pathname, router],
+  );
 
   return (
     <div className="flex justify-between items-center">

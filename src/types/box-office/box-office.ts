@@ -1,27 +1,25 @@
-// 박스오피스(KOBIS)
+import { KmdbMovieInfo } from '@/types/movies/movies';
 
-// 응답으로 받은 일별 박스오피스
-import { KmdbMovieInfo } from '@/types/movies';
-
+// 일별 박스오피스(KOBIS)
 export type KobisDailyBoxOfficeRes = {
   boxOfficeResult: KobisDailyBoxOfficeResData;
 };
 
-type KobisDailyBoxOfficeResData = KobisBoxOfficeResIdentifier & {
+type KobisDailyBoxOfficeResData = KobisBoxOfficeResDataIdentifier & {
   dailyBoxOfficeList: KobisBoxOfficeItem[];
 };
 
-// 응답으로 받은 주간 박스오피스
+// 주간 박스오피스(KOBIS)
 export type KobisWeeklyBoxOfficeRes = {
   boxOfficeResult: KobisWeeklyBoxOfficeResData;
 };
 
-type KobisWeeklyBoxOfficeResData = KobisBoxOfficeResIdentifier & {
+type KobisWeeklyBoxOfficeResData = KobisBoxOfficeResDataIdentifier & {
   yearWeekTime: string;
   weeklyBoxOfficeList: KobisBoxOfficeItem[];
 };
 
-type KobisBoxOfficeResIdentifier = {
+type KobisBoxOfficeResDataIdentifier = {
   boxofficeType: string; // 박스오피스 종류
   showRange: string; // 박스오피스 조회 일자
 };

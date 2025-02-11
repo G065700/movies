@@ -1,7 +1,7 @@
 import {
   MakerResponsePeopleInfoFilmo,
   MakerResponsePeopleInfoFilmoListForView,
-} from '@/types/maker';
+} from '@/types/makers/maker';
 import Data from '@shared/data/Data';
 import DataRow from '@shared/data/DataRow';
 

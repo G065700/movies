@@ -3,8 +3,9 @@
 import TextField from '@components/shared/form/TextField';
 import { useState, useCallback, ChangeEvent, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { MovieSearchParamsForView } from '@/types/movies';
+import { MovieSearchParamsForView } from '@/types/movies/movies';
 import Button from '@shared/button/Button';
+import { defaultPaginationValue } from '@/data/pagination';
 
 export default MoviesSearchFilter;
 
@@ -34,10 +35,10 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
     }));
   }, []);
 
-  const handleSearchButton = () => {
+  const handleSearchButton = useCallback(() => {
     const tempSearchParams: MovieSearchParamsForView = {
       ...formValues,
-      page: '1',
+      page: defaultPaginationValue.page,
     };
 
     const qsArr: string[] = [];
@@ -49,26 +50,15 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
     });
 
     router.push(`${pathname}?${qsArr.join('&')}`);
-  };
+  }, [formValues, pathname, router]);
 
   return (
-    <div className="flex gap-5">
-      <div className="flex flex-wrap gap-[15px]">
+    <div className="flex justify-between gap-5">
+      <div className="flex gap-[15px]">
         <TextField
           label="영화명"
           name="title"
           value={formValues.title}
-          onChange={handleFormValues}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearchButton();
-            }
-          }}
-        />
-        <TextField
-          label="감독명"
-          name="director"
-          value={formValues.director}
           onChange={handleFormValues}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -87,10 +77,19 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
             }
           }}
         />
+        <TextField
+          label="감독명"
+          name="director"
+          value={formValues.director}
+          onChange={handleFormValues}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearchButton();
+            }
+          }}
+        />
       </div>
-      <Button onClick={handleSearchButton} className="px-6">
-        검색
-      </Button>
+      <Button onClick={handleSearchButton}>검색</Button>
     </div>
   );
 }

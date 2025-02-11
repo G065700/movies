@@ -1,11 +1,13 @@
-import { MakersResponse, MakersSearchParams } from '@/types/makers';
+import { MakersResponse, MakersSearchParams } from '@/types/makers/makers';
+import { defaultPaginationValue } from '@/data/pagination';
+import { revalidateTime } from '@/data/validation';
 
 export default async function getMakers(params: MakersSearchParams) {
   const {
     peopleNm = '',
     filmoNames = '',
-    page = '1',
-    countPerPage = '20',
+    page = defaultPaginationValue.page,
+    countPerPage = defaultPaginationValue.countPerPage,
   } = await params;
 
   const qs = `peopleNm=${peopleNm}&filmoNames=${filmoNames}&curPage=${page}&itemPerPage=${countPerPage}&key=${process.env.KOBIS_KEY}`;
@@ -13,8 +15,9 @@ export default async function getMakers(params: MakersSearchParams) {
   const res = await fetch(
     `https://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?${qs}`,
     {
+      method: 'GET',
       next: {
-        revalidate: 3600,
+        revalidate: revalidateTime,
       },
     },
   );

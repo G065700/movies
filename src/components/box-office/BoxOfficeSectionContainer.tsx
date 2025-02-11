@@ -4,7 +4,7 @@ export default BoxOfficeSectionContainer;
 
 function BoxOfficeSectionContainer({ children }: { children: ReactNode }) {
   return (
-    <div className="h-[calc(50dvh_-_40px)] sm:h-fit sm:max-h-full">
+    <div className="h-[calc(50dvh_-_60px)] sm:h-fit sm:max-h-full">
       {children}
     </div>
   );

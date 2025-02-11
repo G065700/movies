@@ -1,4 +1,4 @@
-import { Staff } from '@/types/movies';
+import { Staff } from '@/types/movies/movies';
 import DataRow from '@shared/data/DataRow';
 import Data from '@shared/data/Data';
 

@@ -1,4 +1,4 @@
-import { MovieResponseDataResultForImagesInfo } from '@/types/movie';
+import { MovieResponseDataResultForImagesInfo } from '@/types/movies/movie';
 import Image from 'next/image';
 import Link from 'next/link';
 import DataRow from '@shared/data/DataRow';

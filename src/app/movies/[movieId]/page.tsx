@@ -1,14 +1,14 @@
 import getMovie from '@actions/movies/getMovie';
 import Container from '@shared/container/Container';
 import MovieDefaultInfo from '@components/movie/MovieDefaultInfo';
+import MovieStaffsInfo from '@components/movie/MovieStaffsInfo';
+import MovieImagesInfo from '@components/movie/MovieImagesInfo';
+import BackButton from '@components/movie/BackButton';
 import {
   MovieResponseDataResultForDefaultInfo,
   MovieResponseDataResultForImagesInfo,
-} from '@/types/movie';
-import MovieStaffsInfo from '@components/movie/MovieStaffsInfo';
-import { Staff } from '@/types/movies';
-import MovieImagesInfo from '@components/movie/MovieImagesInfo';
-import BackButton from '@components/movie/BackButton';
+} from '@/types/movies/movie';
+import { Staff } from '@/types/movies/movies';
 
 export default async function MoviePage({
   params,

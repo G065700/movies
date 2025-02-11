@@ -1,4 +1,4 @@
-import { KmdbMovieInfo, Staff } from '@/types/movies';
+import { KmdbMovieInfo, Staff } from '@/types/movies/movies';
 import DataRow from '@shared/data/DataRow';
 import Data from '@shared/data/Data';
 import Image from 'next/image';

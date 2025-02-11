@@ -31,7 +31,7 @@ function BoxOfficeSectionTitle({ data }: BoxOfficeCardListTitleProps) {
       <span className="text-lg hidden sm:block">
         ({isDailyRange ? startDate : startDate + ' ~ ' + endDate})
       </span>
-      <BoxOfficeSectionInformationIcon data={{ isDailyRange }} />
+      <BoxOfficeSectionInformationIcon data={{ isDailyRange, endDate }} />
     </div>
   );
 }

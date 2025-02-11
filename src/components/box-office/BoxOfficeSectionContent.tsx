@@ -1,4 +1,7 @@
-import { BoxOfficeMovieForView, KobisBoxOfficeItem } from '@/types/box-office';
+import {
+  BoxOfficeMovieForView,
+  KobisBoxOfficeItem,
+} from '@/types/box-office/box-office';
 import { getBoxOfficeMovie } from '@actions/box-office/movie/getBoxOfficeMovie';
 import BoxOfficeSwiper from '@components/box-office/box-office-swiper/BoxOfficeSwiper';
 
@@ -28,8 +31,15 @@ async function getBoxOfficeListData(boxOfficeListData: KobisBoxOfficeItem[]) {
       data: { kobis, kmdb },
     } = await getBoxOfficeMovie(movieCd);
 
+    let directors = kobis.directors.map((director) => director.peopleNm);
+
+    if (directors.length === 0 && kmdb) {
+      directors = kmdb.directors.director.map(
+        (director) => director.directorNm,
+      );
+    }
+
     const genres = kobis.genres.map((genre) => genre.genreNm);
-    const directors = kobis.directors.map((director) => director.peopleNm);
     const audit = kobis.audits.map((audit) => audit.watchGradeNm);
     const posters = kmdb?.posters;
 

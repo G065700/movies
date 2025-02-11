@@ -11,7 +11,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   function TextField({ label, ...props }, ref) {
     return (
       <div className="flex flex-row items-center gap-[5px]">
-        {label && <span>{label}</span>}
+        {label && <span className="font-bold min-w-fit">{label}</span>}
         <Input ref={ref} {...props} />
       </div>
     );

@@ -10,6 +10,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  min-width: 605px;
+  min-width: 300px;
+  min-height: 100dvh;
   font-size: 13px;
 }

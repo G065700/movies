@@ -1,4 +1,4 @@
-import { MakerResponsePeopleInfoForDefaultInfo } from '@/types/maker';
+import { MakerResponsePeopleInfoForDefaultInfo } from '@/types/makers/maker';
 import Data from '@shared/data/Data';
 import DataRow from '@shared/data/DataRow';
 

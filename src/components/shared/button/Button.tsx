@@ -12,7 +12,7 @@ function Button({ children = '확인', onClick, className = '' }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={`w-fit bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold ${className}`}
+      className={`w-[80px] h-[36px] bg-blue-500 rounded-lg text-white font-semibold ${className}`}
     >
       {children}
     </button>
