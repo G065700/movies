@@ -1,9 +1,9 @@
 import BoxOfficeSectionTitle from '@components/box-office/BoxOfficeSectionTitle';
 import { KobisWeeklyBoxOfficeRes } from '@/types/box-office/box-office';
 import getWeeklyBoxOffice from '@actions/box-office/getWeeklyBoxOffice';
-import BoxOfficeSectionSwiperGuideText from '@components/box-office/BoxOfficeSectionSwiperGuideText';
-import BoxOfficeSectionContent from '@components/box-office/BoxOfficeSectionContent';
-import BoxOfficeSectionContainer from '@components/box-office/BoxOfficeSectionContainer';
+import BoxOfficeSwiperGuidance from '@components/box-office/BoxOfficeSwiperGuidance';
+import BoxOfficeContent from '@components/box-office/BoxOfficeContent';
+import BoxOfficeContainer from '@components/box-office/BoxOfficeContainer';
 
 export default WeeklyBoxOffice;
 
@@ -17,16 +17,16 @@ async function WeeklyBoxOffice() {
   } = weeklyBoxOffice;
 
   const {
-    boxofficeType: boxOfficeType,
+    boxofficeType,
     showRange: range,
     weeklyBoxOfficeList: boxOfficeList,
   } = boxOfficeResult;
 
   return (
-    <BoxOfficeSectionContainer>
-      <BoxOfficeSectionTitle data={{ boxOfficeType, range }} />
-      <BoxOfficeSectionSwiperGuideText />
-      <BoxOfficeSectionContent data={{ boxOfficeList }} />
-    </BoxOfficeSectionContainer>
+    <BoxOfficeContainer>
+      <BoxOfficeSectionTitle data={{ boxofficeType, range }} />
+      <BoxOfficeSwiperGuidance />
+      <BoxOfficeContent data={{ boxOfficeList }} />
+    </BoxOfficeContainer>
   );
 }

@@ -3,12 +3,12 @@ import Container from '@shared/container/Container';
 import MovieDefaultInfo from '@components/movie/MovieDefaultInfo';
 import MovieStaffsInfo from '@components/movie/MovieStaffsInfo';
 import MovieImagesInfo from '@components/movie/MovieImagesInfo';
-import BackButton from '@components/movie/BackButton';
 import {
   MovieResponseDataResultForDefaultInfo,
   MovieResponseDataResultForImagesInfo,
 } from '@/types/movies/movie';
 import { Staff } from '@/types/movies/movies';
+import BackButton from '@shared/button/BackButton';
 
 export default async function MoviePage({
   params,
@@ -43,13 +43,11 @@ export default async function MoviePage({
   };
 
   return (
-    <Container>
-      <div className="flex flex-col gap-5">
-        <MovieDefaultInfo data={{ defaultInfo }} />
-        <MovieStaffsInfo data={{ staffs }} />
-        <MovieImagesInfo data={{ images }} />
-        <BackButton />
-      </div>
+    <Container className="flex flex-col gap-5 h-fit min-h-[calc(100dvh_-_40px)]">
+      <MovieDefaultInfo data={{ defaultInfo }} />
+      <MovieStaffsInfo data={{ staffs }} />
+      <MovieImagesInfo data={{ images }} />
+      <BackButton />
     </Container>
   );
 }

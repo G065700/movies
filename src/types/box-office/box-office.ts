@@ -117,25 +117,40 @@ type KobisMoviePerson = {
 };
 
 export type BoxOfficeMovieAllInfo = {
-  kobis: KobisMovieInfo;
-  kmdb: KmdbMovieInfo | undefined;
+  kobis: KobisMovieInfo | null;
+  kmdb: KmdbMovieInfo | null;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 
 export type BoxOfficeMovieForView = {
-  summary: {
-    rank: string;
-    poster: string;
-    movieCd: string;
-    movieSeq?: string;
-    movieNm: string;
-    genre: string;
-    director: string;
-    audit: string;
-    openDt: string;
-    audiAcc: string; // 누적관객수
-    salesAcc: string; // 누적매출액
-  };
-  detail?: KmdbMovieInfo;
+  summary: BoxOfficeMovieSummaryForView;
+  detail: BoxOfficeMovieDetailForView;
 };
+
+export type BoxOfficeMovieSummaryForView = {
+  rank: string; // 해당일자의 박스오피스 순위
+  rankInten: number; // 전일대비 순위의 증감분
+  rankOldAndNew: 'OLD' | 'NEW'; // 랭킹에 신규진입여부 (“OLD” : 기존 , “NEW” : 신규)
+  kobisMovieCd: string; // 영화의 대표코드
+  poster: string; // 대표 포스터
+  movieNm: string; // 영화명
+  director: string; // 감독 (2명 이상일 경우 '외 N명')
+  genres: string; // 장르
+  audit: string; // 관람등급
+  openDt: string; // 개봉일
+  runtime: string; // 상영시간
+  nations: string; // 제작국가
+  audiAcc: string; // 누적관객수
+  salesAcc: string; // 누적매출액
+};
+
+export type BoxOfficeMovieDetailForView = BoxOfficeMovieSummaryForView &
+  Pick<KmdbMovieInfo, 'staffs'> & {
+    DOCID: string;
+    awards: string[];
+    keywords: string;
+    plotText: string;
+    posters: string[];
+    stlls: string[];
+  };

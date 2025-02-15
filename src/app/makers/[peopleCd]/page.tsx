@@ -2,7 +2,7 @@ import getMaker from '@actions/makers/getMaker';
 import Container from '@shared/container/Container';
 import MakerDefaultInfo from '@components/maker/MakerDefaultInfo';
 import MakerFilmosInfo from '@components/maker/MakerFilmosInfo';
-import BackButton from '@components/maker/BackButton';
+import BackButton from '@shared/button/BackButton';
 import {
   MakerResponsePeopleInfoFilmo,
   MakerResponsePeopleInfoForDefaultInfo,
@@ -29,12 +29,10 @@ export default async function MakerPage({
   const filmosInfo: MakerResponsePeopleInfoFilmo[] = maker.filmos;
 
   return (
-    <Container>
-      <div className="flex flex-col gap-5">
-        <MakerDefaultInfo data={{ defaultInfo }} />
-        <MakerFilmosInfo data={{ filmosInfo }} />
-        <BackButton />
-      </div>
+    <Container className="flex flex-col gap-5 h-fit min-h-[calc(100dvh_-_40px)]">
+      <MakerDefaultInfo data={{ defaultInfo }} />
+      <MakerFilmosInfo data={{ filmosInfo }} />
+      <BackButton />
     </Container>
   );
 }

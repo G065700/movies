@@ -1,14 +1,5 @@
-import Container from '@shared/container/Container';
-import DailyBoxOffice from '@components/box-office/DailyBoxOffice';
-import WeeklyBoxOffice from '@components/box-office/WeeklyBoxOffice';
-import Spacing40 from '@shared/spacing/Spacing-40';
+import DailyBoxOfficePage from '@/app/(home)/box-office/daily/page';
 
-export default async function BoxOfficePage() {
-  return (
-    <Container>
-      <DailyBoxOffice />
-      <Spacing40 />
-      <WeeklyBoxOffice />
-    </Container>
-  );
+export default async function DefaultBoxOfficePage() {
+  return <DailyBoxOfficePage />;
 }

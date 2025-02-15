@@ -1,3 +1,6 @@
+import { parseISO, format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
 export function getYesterday() {
   const d = new Date();
   d.setDate(d.getDate() - 1);
@@ -21,4 +24,10 @@ export function getLastSunday() {
     String(d.getMonth() + 1).padStart(2, '0') +
     String(d.getDate()).padStart(2, '0')
   );
+}
+
+export function getKoDate(date: string) {
+  return format(parseISO(date), 'yyyy년 M월 d일 eeee', {
+    locale: ko,
+  });
 }

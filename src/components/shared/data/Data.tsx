@@ -19,7 +19,7 @@ function Data(props: DataProps) {
       <div
         className={`p-1 flex flex-1 items-center bg-white px-3 py-2 ${contentClassName}`}
       >
-        {content}
+        {content || '-'}
       </div>
     </>
   );

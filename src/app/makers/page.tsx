@@ -33,7 +33,7 @@ export default async function Makers({ searchParams }: MakersProps) {
   } = makers;
 
   return (
-    <Container className="w-full sm:w-[calc(100%_-_180px)]">
+    <Container>
       <MakersSearchFilter data={{ searchParams: searchParamsForView }} />
       <Division />
       <MakersSearchResultSummary

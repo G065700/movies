@@ -2,24 +2,34 @@
 
 import { KobisDailyBoxOfficeRes } from '@/types/box-office/box-office';
 import { getYesterday } from '@/helpers/getDate';
-import { revalidateTime } from '@/data/validation';
+import { getSecondsUntilMidnight } from '@/data/validation';
 
 export default async function getDailyBoxOffice() {
   const yesterday = getYesterday();
 
-  const res = await fetch(
-    `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`,
-    {
-      method: 'GET',
-      next: {
-        revalidate: revalidateTime,
+  try {
+    const res = await fetch(
+      `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`,
+      {
+        method: 'GET',
+        cache: 'force-cache', // 캐시 사용
+        next: {
+          revalidate: getSecondsUntilMidnight(),
+        },
       },
-    },
-  );
+    );
 
-  const data: KobisDailyBoxOfficeRes = await res.json();
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
 
-  return {
-    data,
-  };
+    const data: KobisDailyBoxOfficeRes = await res.json();
+
+    return {
+      data,
+    };
+  } catch (e) {
+    console.error('Failed to fetch getDailyBoxOffice:', e);
+    throw new Error(e instanceof Error ? e.message : 'Unknown error occurred');
+  }
 }

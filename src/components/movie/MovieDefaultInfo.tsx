@@ -30,7 +30,7 @@ function MovieDefaultInfo({ data }: MovieDefaultInfoProps) {
           <Data title="개봉일" content={defaultInfo.repRlsDate} />
           <Data
             title="상영시간"
-            content={`${defaultInfo.runtime} ${defaultInfo.runtime ? ' 분' : null}`}
+            content={`${defaultInfo.runtime ? `${defaultInfo.runtime} 분` : ''}`}
           />
         </DataRow>
       )}

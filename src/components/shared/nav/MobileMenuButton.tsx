@@ -1,10 +1,10 @@
 'use client';
 
-import { Fragment, useState, useCallback, useEffect } from 'react';
+import useScreenStore from '@/stores/useScreenStore';
 import { Menu, menus } from '@shared/nav/menus';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import useScreenStore from '@/stores/useScreenStore';
+import { Fragment, useState, useCallback, useEffect, useMemo } from 'react';
 
 export default MobileMenuButton;
 
@@ -14,6 +14,10 @@ function MobileMenuButton() {
   const innerWidth = useScreenStore((s) => s.getScreenSize().width);
 
   const pathname = usePathname();
+  const pathnameArr = useMemo(
+    () => pathname.split('/').filter((pn) => pn),
+    [pathname],
+  );
 
   const handleMenuButtonClick = () => {
     setShowMenu(!showMenu);
@@ -28,19 +32,23 @@ function MobileMenuButton() {
   );
 
   useEffect(() => {
-    let targetMenu = menus.find((menu) => menu.path === pathname);
+    let targetMenu = menus.find((menu) => pathnameArr.includes(menu.path));
 
     if (!targetMenu) {
-      const depth1Menus = menus.filter((menu) => menu.depth2Menus);
-      depth1Menus.forEach((depth1Menu) => {
-        targetMenu = depth1Menu.depth2Menus?.find(
-          (depth2Menu) => depth2Menu.path === pathname,
-        );
-      });
+      const depth2Menus = menus.flatMap((depth1Menu) => depth1Menu.depth2Menus);
+      targetMenu = depth2Menus.find(
+        (depth2Menu) => depth2Menu && depth2Menu.path.includes(pathnameArr[0]),
+      );
+
+      if (!targetMenu && pathname === '/') {
+        targetMenu = depth2Menus.find((depth2Menu) => depth2Menu?.path === '/');
+      }
     }
 
-    targetMenu && handleMenu(targetMenu);
-  }, [pathname, handleMenu]);
+    if (targetMenu) {
+      handleMenu(targetMenu);
+    }
+  }, [pathname, pathnameArr, handleMenu]);
 
   useEffect(() => {
     if (innerWidth > 856) {
@@ -82,7 +90,6 @@ function MobileMenuButton() {
                     {menu.depth2Menus.map((depth2Menu) => (
                       <li
                         key={depth2Menu.name}
-                        className="ml-3"
                         onClick={() => {
                           handleMenu(depth2Menu);
                         }}
