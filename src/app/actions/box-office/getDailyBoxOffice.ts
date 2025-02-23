@@ -12,7 +12,6 @@ export default async function getDailyBoxOffice() {
       `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`,
       {
         method: 'GET',
-        cache: 'force-cache', // 캐시 사용
         next: {
           revalidate: getSecondsUntilMidnight(),
         },
