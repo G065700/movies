@@ -43,8 +43,8 @@ function MakerFilmosInfo({ data }: MakerFilmosInfoProps) {
       <div className="text-lg font-black">필모</div>
       {groupFilmos.map((filmo) => (
         <DataRow key={filmo.movieCd}>
-          <Data title="참여영화" content={filmo.movieNm} />
-          <Data title="참여분야" content={filmo.moviePartNm.join(' | ')} />
+          <Data title="영화" content={filmo.movieNm} />
+          <Data title="참여" content={filmo.moviePartNm.join(' | ')} />
         </DataRow>
       ))}
     </div>

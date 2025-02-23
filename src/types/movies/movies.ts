@@ -15,7 +15,7 @@ export type MovieSearchParamsForView = {
   countPerPage: string;
 };
 
-export type KobisResData = {
+export type KmdbResData = {
   KMAQuery: string;
   Query: string;
   TotalCount: number;

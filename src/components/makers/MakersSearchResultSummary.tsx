@@ -2,7 +2,7 @@
 
 import { MakersSearchParamsForView } from '@/types/makers/makers';
 import { usePathname, useRouter } from 'next/navigation';
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent } from 'react';
 import CountPerPageSelect from '@shared/select/CountPerPageSelect';
 import { defaultPaginationValue } from '@/data/pagination';
 
@@ -23,26 +23,23 @@ function MakersSearchResultSummary({ data }: MakersSearchResultSummaryProps) {
 
   const countPerPage = searchParams.countPerPage;
 
-  const handleCountPerPage = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
-      const tempSearchParams: MakersSearchParamsForView = {
-        ...searchParams,
-        page: defaultPaginationValue.page,
-        countPerPage: e.target.value,
-      };
+  const handleCountPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
+    const tempSearchParams: MakersSearchParamsForView = {
+      ...searchParams,
+      page: defaultPaginationValue.page,
+      countPerPage: e.target.value,
+    };
 
-      const qsArr: string[] = [];
+    const qsArr: string[] = [];
 
-      Object.keys(tempSearchParams).forEach((key) => {
-        if (tempSearchParams[key]) {
-          qsArr.push(`${key}=${tempSearchParams[key]}`);
-        }
-      });
+    Object.keys(tempSearchParams).forEach((key) => {
+      if (tempSearchParams[key]) {
+        qsArr.push(`${key}=${tempSearchParams[key]}`);
+      }
+    });
 
-      router.push(`${pathname}?${qsArr.join('&')}`);
-    },
-    [searchParams, router, pathname],
-  );
+    router.push(`${pathname}?${qsArr.join('&')}`);
+  };
 
   return (
     <div className="flex justify-between items-center">

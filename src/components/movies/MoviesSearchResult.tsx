@@ -1,3 +1,5 @@
+'use client';
+
 import { KmdbMovieInfo } from '@/types/movies/movies';
 import TableHeader, { TableHeaderCol } from '@shared/table/TableHeader';
 import TableBodyRow from '@shared/table/TableBodyRow';
@@ -6,6 +8,8 @@ import ClickableTableBodyCol from '@shared/table/clickable-table-body-column/Cli
 import TableBodyDataNotExistRow from '@shared/table/TableBodyDataNotExistRow';
 import TableBody from '@shared/table/TableBody';
 import Table from '@shared/table/Table';
+import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default MoviesSearchResult;
 
@@ -27,6 +31,15 @@ const tableHeaderRow: TableHeaderCol[] = [
 
 function MoviesSearchResult({ data }: MoviesSearchResultProps) {
   const { searchResult } = data;
+  const searchParams = useSearchParams();
+
+  const tableBodyFirstRowRef = useRef<HTMLTableRowElement>(null);
+
+  useEffect(() => {
+    if (tableBodyFirstRowRef.current) {
+      tableBodyFirstRowRef.current.scrollIntoView();
+    }
+  }, [searchParams]);
 
   return (
     <Table>
@@ -36,8 +49,11 @@ function MoviesSearchResult({ data }: MoviesSearchResultProps) {
         {(!searchResult || searchResult.length === 0) && (
           <TableBodyDataNotExistRow text="검색 조건과 일치하는 영화가 없습니다." />
         )}
-        {searchResult?.map((movie: KmdbMovieInfo) => (
-          <TableBodyRow key={movie.DOCID}>
+        {searchResult?.map((movie: KmdbMovieInfo, idx: number) => (
+          <TableBodyRow
+            key={movie.DOCID}
+            ref={idx === 0 ? tableBodyFirstRowRef : null}
+          >
             <ClickableTableBodyColHeader
               data={{
                 href: `/movies/${movie.DOCID}`,
@@ -52,13 +68,13 @@ function MoviesSearchResult({ data }: MoviesSearchResultProps) {
             >
               {movie.directors.director[0].directorNm.replace(regEx, '')}{' '}
               {movie.directors.director.length > 1 &&
-                `외 ${movie.directors.director.length - 1}명`}
+                `외 ${movie.directors.director.length - 1} 명`}
             </ClickableTableBodyCol>
 
             <ClickableTableBodyCol
               data={{ href: `/movies/${movie.DOCID}`, tdStyle: 'w-[15%]' }}
             >
-              {movie.genre}
+              {movie.genre.split(',').join(' | ')}
             </ClickableTableBodyCol>
 
             <ClickableTableBodyCol

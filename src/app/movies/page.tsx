@@ -32,7 +32,7 @@ export default async function Movies({ searchParams }: MoviesProps) {
   } = movies;
 
   return (
-    <Container className="w-full sm:w-[calc(100%_-_180px)]">
+    <Container>
       <MoviesSearchFilter data={{ searchParams: searchParamsForView }} />
       <Division />
       <MoviesSearchResultSummary

@@ -1,3 +1,5 @@
+'use client';
+
 import { MakersResponseDataPeople } from '@/types/makers/makers';
 import TableHeader, { TableHeaderCol } from '@shared/table/TableHeader';
 import TableBodyRow from '@shared/table/TableBodyRow';
@@ -6,6 +8,8 @@ import ClickableTableBodyCol from '@shared/table/clickable-table-body-column/Cli
 import TableBody from '@shared/table/TableBody';
 import Table from '@shared/table/Table';
 import TableBodyDataNotExistRow from '@shared/table/TableBodyDataNotExistRow';
+import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default MakersSearchResult;
 
@@ -23,6 +27,15 @@ const tableHeaderRow: TableHeaderCol[] = [
 
 function MakersSearchResult({ data }: MakersSearchResultProps) {
   const { searchResult } = data;
+  const searchParams = useSearchParams();
+
+  const tableBodyFirstRowRef = useRef<HTMLTableRowElement>(null);
+
+  useEffect(() => {
+    if (tableBodyFirstRowRef.current) {
+      tableBodyFirstRowRef.current.scrollIntoView();
+    }
+  }, [searchParams]);
 
   return (
     <Table>
@@ -31,8 +44,11 @@ function MakersSearchResult({ data }: MakersSearchResultProps) {
         {(!searchResult || searchResult.length === 0) && (
           <TableBodyDataNotExistRow text="검색 조건과 일치하는 영화인이 없습니다." />
         )}
-        {searchResult?.map((maker: MakersResponseDataPeople) => (
-          <TableBodyRow key={maker.peopleCd}>
+        {searchResult?.map((maker: MakersResponseDataPeople, idx: number) => (
+          <TableBodyRow
+            key={maker.peopleCd}
+            ref={idx === 0 ? tableBodyFirstRowRef : null}
+          >
             <ClickableTableBodyColHeader
               data={{
                 href: `/makers/${maker.peopleCd}`,

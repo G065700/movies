@@ -1,6 +1,6 @@
 import { MakersResponse, MakersSearchParams } from '@/types/makers/makers';
 import { defaultPaginationValue } from '@/data/pagination';
-import { revalidateTime } from '@/data/validation';
+import { getSecondsUntilMidnight } from '@/data/validation';
 
 export default async function getMakers(params: MakersSearchParams) {
   const {
@@ -12,19 +12,29 @@ export default async function getMakers(params: MakersSearchParams) {
 
   const qs = `peopleNm=${peopleNm}&filmoNames=${filmoNames}&curPage=${page}&itemPerPage=${countPerPage}&key=${process.env.KOBIS_KEY}`;
 
-  const res = await fetch(
-    `https://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?${qs}`,
-    {
-      method: 'GET',
-      next: {
-        revalidate: revalidateTime,
+  try {
+    const res = await fetch(
+      `https://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?${qs}`,
+      {
+        method: 'GET',
+        cache: 'force-cache', // 캐시 사용
+        next: {
+          revalidate: getSecondsUntilMidnight(),
+        },
       },
-    },
-  );
+    );
 
-  const data: MakersResponse = await res.json();
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
 
-  return {
-    data,
-  };
+    const data: MakersResponse = await res.json();
+
+    return {
+      data,
+    };
+  } catch (e) {
+    console.error('Failed to fetch getMakers:', e);
+    throw new Error(e instanceof Error ? e.message : 'Unknown error occurred');
+  }
 }

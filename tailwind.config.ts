@@ -11,9 +11,9 @@ export default {
     screens: {
       sm: '856px',
       md: '1024px',
-      lg: '1080px',
-      xl: '1576px',
-      '2xl': '2094px',
+      lg: '1576px',
+      xl: '2094px',
+      // '2xl': '2094px',
     },
   },
   plugins: [],

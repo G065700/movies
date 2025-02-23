@@ -1,7 +1,7 @@
 'use client';
 
 import TextField from '@components/shared/form/TextField';
-import { useState, useCallback, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { MovieSearchParamsForView } from '@/types/movies/movies';
 import Button from '@shared/button/Button';
@@ -28,14 +28,14 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
     setFormValues(searchParams);
   }, [searchParams]);
 
-  const handleFormValues = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleFormValues = (e: ChangeEvent<HTMLInputElement>) => {
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
       [e.target.name]: e.target.value,
     }));
-  }, []);
+  };
 
-  const handleSearchButton = useCallback(() => {
+  const handleSearchButton = () => {
     const tempSearchParams: MovieSearchParamsForView = {
       ...formValues,
       page: defaultPaginationValue.page,
@@ -50,7 +50,7 @@ function MoviesSearchFilter({ data }: MoviesSearchFilterProps) {
     });
 
     router.push(`${pathname}?${qsArr.join('&')}`);
-  }, [formValues, pathname, router]);
+  };
 
   return (
     <div className="flex justify-between gap-5">

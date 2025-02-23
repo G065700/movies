@@ -1,20 +1,26 @@
 import { MakerResponse } from '@/types/makers/maker';
-import { revalidateTime } from '@/data/validation';
 
 export default async function getMaker(peopleCd: string) {
-  const res = await fetch(
-    `http://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?peopleCd=${peopleCd}&key=${process.env.KOBIS_KEY}`,
-    {
-      method: 'GET',
-      next: {
-        revalidate: revalidateTime,
+  try {
+    const res = await fetch(
+      `http://kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?peopleCd=${peopleCd}&key=${process.env.KOBIS_KEY}`,
+      {
+        method: 'GET',
+        cache: 'force-cache', // 캐시 사용
       },
-    },
-  );
+    );
 
-  const data: MakerResponse = await res.json();
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
 
-  return {
-    data,
-  };
+    const data: MakerResponse = await res.json();
+
+    return {
+      data,
+    };
+  } catch (e) {
+    console.error('Failed to fetch getMaker:', e);
+    throw new Error(e instanceof Error ? e.message : 'Unknown error occurred');
+  }
 }
