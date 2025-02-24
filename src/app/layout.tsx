@@ -28,16 +28,22 @@ const gowunDodum = localFont({
   ],
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl!),
+  generator: 'Next.js',
+  applicationName: 'MOVIES',
+  referrer: 'origin-when-cross-origin',
   title: 'MOVIES',
   description: '박스오피스 및 영화 정보를 제공합니다.',
-  keywords: '박스오피스, 영화 검색, 영화인 검색, boxoffice, movie',
+  keywords: '박스오피스, 영화 검색, 영화인 검색, boxoffice, movie, kobis, KMDB',
   openGraph: {
     title: 'MOVIES',
     siteName: 'MOVIES',
     description: '박스오피스 및 영화 정보를 제공합니다.',
     images: {
-      url: '/public/favicon.ico',
+      url: '/favicon.ico',
     },
   },
   verification: {

@@ -6,7 +6,6 @@ import { getYesterday } from '@/helpers/getDate';
 
 const yesterday = getYesterday();
 const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`;
-
 export default async function getDailyBoxOffice() {
   try {
     let res = await fetch(url, {

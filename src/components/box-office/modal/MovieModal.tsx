@@ -25,21 +25,40 @@ function MovieModal({ movie }: { movie: BoxOfficeMovieDetailForView }) {
     <div className="flex flex-col gap-5">
       {/* 기본 정보 */}
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-black">기본 정보</div>
+        <div className="text-md sm:text-lg font-black">기본 정보</div>
         <DataRow>
           <Data title="영화명" content={movie.movieNm} />
         </DataRow>
-        <DataRow>
+
+        <DataRow className="hidden sm:flex">
           <Data title="장르" content={movie.genres} />
           <Data title="등급" content={movie.audit} />
         </DataRow>
-        <DataRow>
+        <DataRow className="flex sm:hidden">
+          <Data title="장르" content={movie.genres} />
+        </DataRow>
+        <DataRow className="flex sm:hidden">
+          <Data title="등급" content={movie.audit} />
+        </DataRow>
+
+        <DataRow className="hidden sm:flex">
           <Data
             title="개봉일"
             content={format(parseISO(movie.openDt), 'yyyy년 M월 d일')}
           />
           <Data title="상영시간" content={movie.runtime} />
         </DataRow>
+
+        <DataRow className="flex sm:hidden">
+          <Data
+            title="개봉일"
+            content={format(parseISO(movie.openDt), 'yyyy년 M월 d일')}
+          />
+        </DataRow>
+        <DataRow className="flex sm:hidden">
+          <Data title="상영시간" content={movie.runtime} />
+        </DataRow>
+
         {movie.keywords && (
           <DataRow>
             <Data title="키워드" content={movie.keywords} />
@@ -69,7 +88,7 @@ function MovieModal({ movie }: { movie: BoxOfficeMovieDetailForView }) {
 
       {/* 참여 */}
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-black">참여</div>
+        <div className="text-md sm:text-lg font-black">참여</div>
         {roleGroups.map((roleGroup) => (
           <DataRow key={roleGroup}>
             <Data
@@ -89,7 +108,7 @@ function MovieModal({ movie }: { movie: BoxOfficeMovieDetailForView }) {
       {/* 이미지 */}
       {(movie.posters || movie.stlls) && (
         <div className="flex flex-col gap-1">
-          <div className="text-lg font-black">이미지</div>
+          <div className="text-md sm:text-lg font-black">이미지</div>
           {movie.posters && (
             <DataRow>
               <Data
@@ -135,12 +154,24 @@ function MovieModal({ movie }: { movie: BoxOfficeMovieDetailForView }) {
       )}
 
       <div className="flex flex-col gap-1">
-        <div className="text-lg font-black">통계</div>
-        <DataRow>
+        <div className="text-md sm:text-lg font-black">통계</div>
+        <DataRow className="hidden sm:flex">
           <Data
             title="누적관객수"
             content={`${Number(movie.audiAcc).toLocaleString()} 명`}
           />
+          <Data
+            title="누적매출액"
+            content={`${Number(movie.salesAcc).toLocaleString()} 원`}
+          />
+        </DataRow>
+        <DataRow className="flex sm:hidden">
+          <Data
+            title="누적관객수"
+            content={`${Number(movie.audiAcc).toLocaleString()} 명`}
+          />
+        </DataRow>
+        <DataRow className="flex sm:hidden">
           <Data
             title="누적매출액"
             content={`${Number(movie.salesAcc).toLocaleString()} 원`}
