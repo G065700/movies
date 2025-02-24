@@ -1,17 +1,12 @@
 export function getSecondsUntilMidnight() {
   const now = new Date();
   const nextUpdate = new Date();
-  // nextUpdate.setUTCHours(15, 5, 0, 0) // 00:05 KST = UTC 기준 15:05
-  nextUpdate.setUTCHours(17, 5, 0, 0);
+  nextUpdate.setUTCHours(15, 5, 0, 0); // 00:05 KST = UTC 기준 15:05
 
   // 현재 시간이 00:05(KST) 이후라면, 다음날 00:05(KST)로 설정
   if (now > nextUpdate) {
     nextUpdate.setUTCDate(nextUpdate.getUTCDate() + 1);
   }
-
-  console.log(
-    Math.max(0, Math.floor((nextUpdate.getTime() - now.getTime()) / 1000)),
-  );
 
   // 현재 시각과 00:05까지 남은 초 계산
   return Math.max(0, Math.floor((nextUpdate.getTime() - now.getTime()) / 1000));
