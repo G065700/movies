@@ -3,7 +3,6 @@
 import { revalidateTag } from 'next/cache';
 import { KobisDailyBoxOfficeRes } from '@/types/box-office/box-office';
 import { getYesterday } from '@/helpers/getDate';
-import { getSecondsUntilMidnight } from '@/data/validation';
 
 const yesterday = getYesterday();
 const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`;
@@ -12,10 +11,8 @@ export default async function getDailyBoxOffice() {
   try {
     let res = await fetch(url, {
       method: 'GET',
-      cache: 'force-cache',
       next: {
         tags: ['daily-box-office'],
-        revalidate: getSecondsUntilMidnight(),
       },
     });
 
@@ -37,8 +34,10 @@ export default async function getDailyBoxOffice() {
       revalidateTag('daily-box-office'); // 캐시 삭제
 
       const newRes = await fetch(url, {
-        cache: 'force-cache',
-        next: { revalidate: 0 },
+        next: {
+          tags: ['daily-box-office'],
+          revalidate: 0,
+        },
       });
 
       if (!newRes.ok) {
