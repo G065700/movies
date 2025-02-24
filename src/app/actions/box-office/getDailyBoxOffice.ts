@@ -10,7 +10,7 @@ const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDa
 
 export default async function getDailyBoxOffice() {
   try {
-    const res = await fetch(url, {
+    let res = await fetch(url, {
       method: 'GET',
       cache: 'force-cache',
       next: {
@@ -34,14 +34,15 @@ export default async function getDailyBoxOffice() {
       now.getUTCHours() > 15;
 
     if (!isLatestData && isRevalidateTime) {
-      console.log('캐시 무효화 후 데이터 다시 가져오기...(일별)');
       revalidateTag('daily-box-office'); // 캐시 삭제
+
       const newRes = await fetch(url, {
-        cache: 'no-cache', // 강제로 새 데이터를 가져옴
+        cache: 'force-cache',
+        next: { revalidate: 0 },
       });
 
       if (!newRes.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
+        throw new Error(`HTTP error! Status: ${newRes.status}`);
       }
 
       data = await newRes.json();
