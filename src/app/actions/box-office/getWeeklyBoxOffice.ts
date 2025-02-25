@@ -5,10 +5,10 @@ import { getLastSunday } from '@/helpers/getDate';
 import { getSecondsUntilMondayMidnight } from '@/data/validation';
 import { revalidateTag } from 'next/cache';
 
-const lastSunday = getLastSunday();
-const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${lastSunday}&weekGb=0`;
-
 export default async function getWeeklyBoxOffice() {
+  const lastSunday = await getLastSunday();
+  const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${lastSunday}&weekGb=0`;
+
   try {
     const res = await fetch(url, {
       method: 'GET',

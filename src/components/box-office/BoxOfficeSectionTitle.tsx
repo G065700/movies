@@ -1,5 +1,6 @@
 import BoxOfficeInformationIcon from '@components/box-office/BoxOfficeInformationIcon';
-import { getKoDate } from '@/helpers/getDate';
+import { parseISO, format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 export default BoxOfficeSectionTitle;
 
@@ -28,4 +29,10 @@ function BoxOfficeSectionTitle({ data }: BoxOfficeCardListTitleProps) {
       <BoxOfficeInformationIcon data={{ isDailyRange }} />
     </div>
   );
+}
+
+function getKoDate(date: string) {
+  return format(parseISO(date), 'yyyy년 M월 d일 eeee', {
+    locale: ko,
+  });
 }
