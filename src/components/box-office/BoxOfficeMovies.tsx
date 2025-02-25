@@ -118,8 +118,8 @@ function BoxOfficeSwiperSlideContent({ data }: BoxOfficeSwiperSlideProps) {
         border-solid border-2 border-black
         rounded-lg
         bg-white
-        ${selectedMovieCd !== movie.summary.kobisMovieCd && 'cursor-pointer hover:bg-yellow-100'}
-        ${selectedMovieCd === movie.summary.kobisMovieCd ? 'sm:bg-yellow-200' : 'sm:bg-white sm:text-black'}
+        cursor-pointer hover:bg-yellow-100
+        ${selectedMovieCd === movie.summary.kobisMovieCd ? 'sm:bg-yellow-200 sm:cursor-default sm:hover:bg-yellow-200' : 'sm:bg-white'}
         transition duration-[300]
       `}
     >

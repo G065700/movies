@@ -19,7 +19,7 @@ function SelectedBoxOfficeMoviePoster({ data }: BoxOfficeCardRankProps) {
         src={posterSrc || '/poster.png'}
         alt={movieNm}
         className="rounded-lg min-w-[300px]"
-        loading="lazy"
+        priority
       />
     </div>
   );
