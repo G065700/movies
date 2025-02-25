@@ -1,6 +1,11 @@
 export function getYesterday() {
   const d = new Date();
-  d.setDate(d.getDate() - 1);
+  if (
+    (d.getUTCHours() >= 15 && d.getUTCMinutes() >= 5) ||
+    d.getUTCHours() > 15
+  ) {
+    d.setDate(d.getDate() - 1);
+  }
 
   return (
     d.getFullYear() +
