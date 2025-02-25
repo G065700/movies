@@ -4,9 +4,10 @@ import { revalidateTag } from 'next/cache';
 import { KobisDailyBoxOfficeRes } from '@/types/box-office/box-office';
 import { getYesterday } from '@/helpers/getDate';
 
-const yesterday = getYesterday();
-const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`;
 export default async function getDailyBoxOffice() {
+  const yesterday = await getYesterday();
+  const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${yesterday}`;
+
   try {
     let res = await fetch(url, {
       method: 'GET',
@@ -26,8 +27,7 @@ export default async function getDailyBoxOffice() {
 
     const now = new Date();
     const isRevalidateTime =
-      (now.getUTCHours() >= 15 && now.getUTCMinutes() >= 5) ||
-      now.getUTCHours() > 15;
+      (now.getHours() >= 15 && now.getMinutes() >= 5) || now.getHours() > 15;
 
     if (!isLatestData && isRevalidateTime) {
       revalidateTag('daily-box-office'); // 캐시 삭제
