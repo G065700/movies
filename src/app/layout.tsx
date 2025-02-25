@@ -28,10 +28,10 @@ const gowunDodum = localFont({
   ],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl!),
+  metadataBase: new URL(baseUrl),
   generator: 'Next.js',
   applicationName: 'MOVIES',
   referrer: 'origin-when-cross-origin',
