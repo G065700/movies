@@ -31,10 +31,6 @@ export function getSecondsUntilMondayMidnight() {
     nextUpdate.setUTCDate(nextUpdate.getUTCDate() + 7); // 7일 더해서 다음 주 월요일로 설정
   }
 
-  console.log(
-    Math.max(0, Math.floor((nextUpdate.getTime() - now.getTime()) / 1000)),
-  );
-
   // 현재 시각과 다음 월요일 00:05(KST)까지 남은 초 계산
   return Math.max(0, Math.floor((nextUpdate.getTime() - now.getTime()) / 1000));
 }
