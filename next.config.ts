@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  env: {
+    TZ: 'Asia/Seoul',
+  },
 };
 
 export default nextConfig;

@@ -2,7 +2,7 @@
 
 import { KmdbResData, MoviesSearchParams } from '@/types/movies/movies';
 import { defaultPaginationValue } from '@/data/pagination';
-import { getSecondsUntilMidnight } from '@/data/validation';
+import { revalidateTime } from '@/data/validation';
 
 export default async function getMovies(params: MoviesSearchParams) {
   const {
@@ -23,7 +23,7 @@ export default async function getMovies(params: MoviesSearchParams) {
         method: 'GET',
         cache: 'force-cache', // 캐시 사용
         next: {
-          revalidate: getSecondsUntilMidnight(),
+          revalidate: revalidateTime,
         },
       },
     );

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { getYesterday } from '@/helpers/getDate';
 
 export default BoxOfficeInformationIcon;
 
@@ -57,7 +56,7 @@ function getBoxOfficeSectionInformationGuidance(isDailyRange: boolean) {
     <>
       어제의 박스오피스 영화 1 ~ 10위
       <br />
-      <br />* {getYesterday()} 00:05에 업데이트됩니다.
+      <br />* 00:05에 업데이트됩니다.
     </>
   ) : (
     <>

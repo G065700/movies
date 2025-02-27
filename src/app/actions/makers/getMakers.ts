@@ -1,6 +1,6 @@
 import { MakersResponse, MakersSearchParams } from '@/types/makers/makers';
 import { defaultPaginationValue } from '@/data/pagination';
-import { getSecondsUntilMidnight } from '@/data/validation';
+import { revalidateTime } from '@/data/validation';
 
 export default async function getMakers(params: MakersSearchParams) {
   const {
@@ -19,7 +19,7 @@ export default async function getMakers(params: MakersSearchParams) {
         method: 'GET',
         cache: 'force-cache', // 캐시 사용
         next: {
-          revalidate: getSecondsUntilMidnight(),
+          revalidate: revalidateTime,
         },
       },
     );

@@ -26,8 +26,9 @@ export default async function getDailyBoxOffice() {
       data.boxOfficeResult.showRange.split('~')[0] === yesterday;
 
     const now = new Date();
-    const isRevalidateTime =
-      (now.getHours() >= 15 && now.getMinutes() >= 5) || now.getHours() > 15;
+    const isRevalidateTime = !(
+      now.getUTCHours() === 15 && now.getUTCMinutes() < 5
+    );
 
     if (!isLatestData && isRevalidateTime) {
       revalidateTag('daily-box-office'); // 캐시 삭제
