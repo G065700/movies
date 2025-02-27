@@ -3,7 +3,7 @@ import {
   CompaniesSearchParams,
 } from '@/types/companies/companies';
 import { defaultPaginationValue } from '@/data/pagination';
-import { getSecondsUntilMidnight } from '@/data/validation';
+import { revalidateTime } from '@/data/validation';
 
 export default async function getCompanies(params: CompaniesSearchParams) {
   const {
@@ -22,7 +22,7 @@ export default async function getCompanies(params: CompaniesSearchParams) {
         method: 'GET',
         cache: 'force-cache', // 캐시 사용
         next: {
-          revalidate: getSecondsUntilMidnight(),
+          revalidate: revalidateTime,
         },
       },
     );
