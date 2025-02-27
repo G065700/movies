@@ -1,10 +1,13 @@
 export function getYesterday() {
   const d = new Date();
+
   if (
-    (d.getUTCHours() >= 15 && d.getUTCMinutes() >= 5) ||
+    (d.getUTCHours() === 15 && d.getUTCMinutes() >= 5) ||
     d.getUTCHours() > 15
   ) {
-    d.setDate(d.getDate() - 1);
+    d.setDate(d.getUTCDate());
+  } else {
+    d.setDate(d.getUTCDate() - 1);
   }
 
   return (
@@ -17,7 +20,13 @@ export function getYesterday() {
 export function getLastSunday() {
   const d = new Date();
   const day = d.getDay();
-  const dayOfTheWeek = day === 0 ? 7 : day;
+
+  const dayOfTheWeek =
+    day === 0
+      ? 7
+      : day === 1 && d.getUTCHours() === 15 && d.getUTCMinutes() < 5
+        ? 8
+        : day;
 
   d.setDate(d.getDate() - dayOfTheWeek);
 
