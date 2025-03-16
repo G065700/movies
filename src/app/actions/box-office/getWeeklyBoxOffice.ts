@@ -2,20 +2,17 @@
 
 import { KobisWeeklyBoxOfficeRes } from '@/types/box-office/box-office';
 import { getLastSunday } from '@/helpers/getDate';
-import { getSecondsUntilMondayMidnight } from '@/data/validation';
 import { revalidateTag } from 'next/cache';
 
 export default async function getWeeklyBoxOffice() {
-  const lastSunday = await getLastSunday();
+  const lastSunday = getLastSunday();
   const url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=${process.env.KOBIS_KEY}&targetDt=${lastSunday}&weekGb=0`;
 
   try {
     const res = await fetch(url, {
       method: 'GET',
-      cache: 'force-cache',
       next: {
         tags: ['weekly-box-office'],
-        revalidate: getSecondsUntilMondayMidnight(),
       },
     });
 
@@ -29,18 +26,19 @@ export default async function getWeeklyBoxOffice() {
       data.boxOfficeResult.showRange.split('~')[1] === lastSunday;
 
     const now = new Date();
-
-    const isRevalidateTime =
-      now.getUTCDay() === 1 &&
-      ((now.getUTCHours() >= 15 && now.getUTCMinutes() >= 5) ||
-        now.getUTCHours() > 15);
+    const isRevalidateTime = !(
+      now.getUTCHours() === 15 && now.getUTCMinutes() < 5
+    );
 
     if (!isLatestData && isRevalidateTime) {
       revalidateTag('weekly-box-office'); // 캐시 삭제
 
       const newRes = await fetch(url, {
-        cache: 'force-cache',
-        next: { revalidate: 0 },
+        method: 'GET',
+        next: {
+          tags: ['weekly-box-office'],
+          revalidate: 0,
+        },
       });
 
       if (!newRes.ok) {
